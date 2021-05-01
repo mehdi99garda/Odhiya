@@ -1,9 +1,17 @@
 // //Start : Widget => widget_product_detail
+<<<<<<< HEAD
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:woocomerce_app/API/models/product.dart';
 import 'package:woocomerce_app/API/utils/expand_text.dart';
+=======
+/*import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:first_flutter_app/API/models/product.dart';
+import 'package:first_flutter_app/API/utils/expand_text.dart';
+>>>>>>> 37bef64 (product detail integration)
 
 class ProductDetailsWidget extends StatelessWidget {
   ProductDetailsWidget({Key key, this.data}) : super(key: key);
@@ -50,13 +58,21 @@ class ProductDetailsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+<<<<<<< HEAD
                 Text(
+=======
+                /*Text(
+>>>>>>> 37bef64 (product detail integration)
                   data.attributes != null && data.attributes.length > 0
                       ? (data.attributes[0].options.join("-").toString() +
                           " " +
                           data.attributes[0].name)
                       : "",
+<<<<<<< HEAD
                 ),
+=======
+                ),*/
+>>>>>>> 37bef64 (product detail integration)
                 Text('${data.salePrice}',
                     style: TextStyle(
                         fontSize: 25,
@@ -152,3 +168,7 @@ class ProductDetailsWidget extends StatelessWidget {
 // min 4.36 ajouter carousel slider
 
 //End : Widget => widget_product_detail
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 37bef64 (product detail integration)

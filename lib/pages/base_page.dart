@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:woocomerce_app/API/utils/progressHUD.dart';
 import 'package:woocomerce_app/widgets/widget_home_products.dart';
+=======
+/*import 'package:flutter/material.dart';
+import 'package:first_flutter_app/API/utils/progressHUD.dart';
+import 'package:first_flutter_app/widgets/widget_home_products.dart';
+>>>>>>> 37bef64 (product detail integration)
 
 class BasePage extends StatefulWidget {
   BasePage({Key key}) : super(key: key);
@@ -48,3 +54,7 @@ class BasePageState<T extends BasePage> extends State<T> {
     );
   }
 }
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 37bef64 (product detail integration)

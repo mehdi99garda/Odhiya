@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:woocomerce_app/API/api_service.dart';
 import 'package:woocomerce_app/API/models/category.dart' as categoryModel;
 import 'package:woocomerce_app/API/models/product.dart';
@@ -8,6 +9,18 @@ class WidgetHomeProducts extends StatefulWidget {
   WidgetHomeProducts({Key key, this.labelName, this.tagId}) : super(key: key);
 
   String labelName;
+=======
+import 'package:first_flutter_app/API/api_service.dart';
+import 'package:first_flutter_app/API/models/category.dart' as categoryModel;
+import 'package:first_flutter_app/API/models/product.dart';
+//import 'package:first_flutter_app/provider/products_provider.dart';
+import 'package:first_flutter_app/pages/compount/Annonce.dart';
+
+class WidgetHomeProducts extends StatefulWidget {
+  WidgetHomeProducts({Key key, this.tagId}) : super(key: key);
+
+  //String labelName;
+>>>>>>> 37bef64 (product detail integration)
   String tagId;
 
   @override
@@ -25,6 +38,7 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Container(
         color: Colors.white,
         child: Column(
@@ -42,6 +56,9 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
             _productsList()
           ],
         ));
+=======
+    return Container(color: Colors.white, child: _productsList());
+>>>>>>> 37bef64 (product detail integration)
   }
 
   Widget _productsList() {
@@ -60,6 +77,7 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
 
   Widget _buildList(List<Product> itemes) {
     return Container(
+<<<<<<< HEAD
         height: 150,
         alignment: Alignment.centerLeft,
         child: ListView.builder(
@@ -137,5 +155,69 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
             );
           },
         ));
+=======
+      padding: EdgeInsets.only(top: 5, left: 5, right: 80, bottom: 5),
+      height: 110,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: itemes.length,
+        itemBuilder: (context, index) {
+          var data = itemes[index];
+          return InkWell(
+            onTap: () {
+              /* Navigator.of(context).pushNamed(
+                'annonce',
+              );*/
+              // modification
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Annonce(
+                            product: data,
+                          )));
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: Stack(
+                children: [
+                  Container(
+                    height: 90,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(data.images[0].src),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      left: 10,
+                      bottom: 0,
+                      right: 10,
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                              ),
+                              color: Colors.teal,
+                              borderRadius: BorderRadius.circular(20)),
+                          alignment: Alignment.center,
+                          width: 80,
+                          height: 25,
+                          child: Center(
+                              child: Text('${data.salePrice}' + ' د.م',
+                                  style: TextStyle(color: Colors.white))),
+                        ),
+                      ))
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+>>>>>>> 37bef64 (product detail integration)
   }
 }

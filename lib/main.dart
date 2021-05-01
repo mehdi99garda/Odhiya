@@ -1,14 +1,31 @@
+<<<<<<< HEAD
 import 'package:first_flutter_app/pages/AddPost.dart';
 import 'package:first_flutter_app/pages/ChatPage.dart';
+=======
+import 'package:first_flutter_app/pages/AddPub/Add_description.dart';
+import 'package:first_flutter_app/pages/AddPub/description_detail.dart';
+>>>>>>> 37bef64 (product detail integration)
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/LoginPage.dart';
 import 'package:first_flutter_app/pages/MyCart.dart';
 import 'package:first_flutter_app/pages/SearchPage.dart';
+<<<<<<< HEAD
 import 'package:first_flutter_app/pages/compount/Annonce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+=======
+import 'package:first_flutter_app/pages/SignupPage.dart';
+import 'package:first_flutter_app/pages/categories.dart';
+import 'package:first_flutter_app/pages/events.dart';
+import 'package:first_flutter_app/pages/loadingpage.dart';
+import 'package:first_flutter_app/pages/login.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:first_flutter_app/pages/compount/Annonce.dart';
+>>>>>>> 37bef64 (product detail integration)
 
 void main() => runApp(MyApp());
 
@@ -18,6 +35,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+<<<<<<< HEAD
   String valuechoose = "العربية";
   List languages = ['العربية', 'الفرنسية'];
   String valuecustomer = "شاري";
@@ -28,6 +46,8 @@ class _MyAppState extends State<MyApp> {
   int selectedIndex = 0;
   final screen = [Home(), Annonce(), AddPost(), Chat(), SearchPage()];
 
+=======
+>>>>>>> 37bef64 (product detail integration)
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +55,7 @@ class _MyAppState extends State<MyApp> {
       home: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+<<<<<<< HEAD
           bottomNavigationBar: BottomNavyBar(
             containerHeight: 45,
             selectedIndex: selectedIndex,
@@ -284,6 +305,9 @@ class _MyAppState extends State<MyApp> {
               screen[selectedIndex]
             ],
           ),
+=======
+          body: LoadingPage(),
+>>>>>>> 37bef64 (product detail integration)
         ),
       ),
       routes: {
@@ -305,6 +329,24 @@ class _MyAppState extends State<MyApp> {
         'Login': (context) {
           return LoginPage();
         },
+<<<<<<< HEAD
+=======
+        'part2_add_ad': (context) {
+          return DescriptionAd();
+        },
+        'part3_add_ad': (context) {
+          return Descriptiondetail();
+        },
+        'events': (context) {
+          return Events();
+        },
+        'signup': (context) {
+          return SignupPage();
+        },
+        'login': (context) {
+          return Login();
+        },
+>>>>>>> 37bef64 (product detail integration)
       },
     );
   }

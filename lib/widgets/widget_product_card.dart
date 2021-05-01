@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:woocomerce_app/API/models/product.dart';
+=======
+/*import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:first_flutter_app/API/models/product.dart';
+>>>>>>> 37bef64 (product detail integration)
 
 class ProductCard extends StatelessWidget {
   ProductCard({Key key, this.data}) : super(key: key);
@@ -102,4 +108,8 @@ class ProductCard extends StatelessWidget {
           ),
         ));
   }
+<<<<<<< HEAD
 }
+=======
+}*/
+>>>>>>> 37bef64 (product detail integration)

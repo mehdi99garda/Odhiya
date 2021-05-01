@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+<<<<<<< HEAD
 import 'package:woocomerce_app/API/models/cart_request_model.dart';
 import 'package:woocomerce_app/API/models/cart_response_model.dart';
 import 'package:woocomerce_app/API/models/customer.dart';
@@ -9,6 +10,17 @@ import 'package:woocomerce_app/API/models/category.dart';
 import 'package:dio/dio.dart';
 import 'package:woocomerce_app/API/models/product.dart';
 import 'config.dart';
+=======
+import 'package:first_flutter_app/API/models/cart_request_model.dart';
+import 'package:first_flutter_app/API/models/cart_response_model.dart';
+import 'package:first_flutter_app/API/models/customer.dart';
+import 'package:first_flutter_app/API/models/category.dart';
+
+import 'package:dio/dio.dart';
+import 'package:first_flutter_app/API/models/product.dart';
+import 'config.dart';
+import 'models/login_model.dart';
+>>>>>>> 37bef64 (product detail integration)
 
 class APIService {
   // start class APIService
@@ -37,13 +49,54 @@ class APIService {
         ret = false;
       } else {
         print(e.message);
+<<<<<<< HEAD
         print(e.request);
+=======
+        print(e.requestOptions); //request
+>>>>>>> 37bef64 (product detail integration)
         ret = false;
       }
     }
     return ret;
   }
 
+<<<<<<< HEAD
+=======
+  ////start sign in
+  Future loginCustomer(String username, String password) async {
+    LoginResponse model;
+    var authorization =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    var authToken = base64.encode(
+      utf8.encode(Config.key + ':' + Config.secret),
+    );
+
+    try {
+      var response = await Dio().post(
+        Config.tokenURL,
+        data: {
+          'username': username,
+          'password': password,
+        },
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $authToken',
+          HttpHeaders.contentTypeHeader: 'application/x-www-from-urlencoded'
+        }, responseType: ResponseType.json),
+      );
+      print('rea');
+      print('response ${response.data}');
+      if (response.statusCode == 200) {
+        model = LoginResponse.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print('error:${e.message}');
+      throw e;
+    }
+    return model;
+  }
+  //// end of function
+
+>>>>>>> 37bef64 (product detail integration)
 // End method creatCustomer
 //
 // sart method getCategories
@@ -158,7 +211,11 @@ class APIService {
         print(e.response.statusCode);
       } else {
         print(e.message);
+<<<<<<< HEAD
         print(e.request);
+=======
+        print(e.requestOptions); //request
+>>>>>>> 37bef64 (product detail integration)
       }
     }
     return responseModel;

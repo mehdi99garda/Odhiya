@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+<<<<<<< HEAD
 
 class Annonce extends StatefulWidget {
   @override
@@ -8,6 +9,26 @@ class Annonce extends StatefulWidget {
 }
 
 class _AnnonceState extends State<Annonce> {
+=======
+import 'package:first_flutter_app/API/models/product.dart';
+import 'package:first_flutter_app/pages/compount/expand_text.dart';
+
+class Annonce extends StatefulWidget {
+  Annonce({Key key, this.product}) : super(key: key);
+
+  @override
+  _AnnonceState createState() => _AnnonceState();
+
+  Product product;
+}
+
+class _AnnonceState extends State<Annonce> {
+  /* void initState() {
+    product = new Product();
+    super.initState();
+  }*/
+
+>>>>>>> 37bef64 (product detail integration)
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
@@ -16,7 +37,12 @@ class _AnnonceState extends State<Annonce> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 35,
+<<<<<<< HEAD
           title: Text('title', style: TextStyle(color: Colors.black)),
+=======
+          title: Text(this.widget.product.name,
+              style: TextStyle(color: Colors.black)),
+>>>>>>> 37bef64 (product detail integration)
           centerTitle: true,
           backgroundColor: Colors.white,
           leading: InkWell(
@@ -41,9 +67,16 @@ class _AnnonceState extends State<Annonce> {
                         width: double.infinity,
                         child: Carousel(
                           images: [
+<<<<<<< HEAD
                             AssetImage('images/cow1.jpg'),
                             AssetImage('images/mouton1.jpg'),
                             AssetImage('images/mouton2.jpg')
+=======
+                            // AssetImage('images/cow1.jpg'),
+                            // AssetImage('images/mouton1.jpg'),
+                            // AssetImage('images/mouton2.jpg'),
+                            NetworkImage(this.widget.product.images[0].src)
+>>>>>>> 37bef64 (product detail integration)
                           ],
                           dotSize: 4,
                           indicatorBgPadding: 7,
@@ -57,6 +90,17 @@ class _AnnonceState extends State<Annonce> {
                     color: Colors.white,
                     child: ListView(
                       children: [
+<<<<<<< HEAD
+=======
+                        // HtML
+                        ExpandText(
+                          labelHeader: "Product Details",
+                          shortDec: this.widget.product.shortDescription,
+                          dec: this.widget.product.description,
+                        ),
+
+                        //END HTML
+>>>>>>> 37bef64 (product detail integration)
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.all(10),
@@ -78,10 +122,20 @@ class _AnnonceState extends State<Annonce> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
+<<<<<<< HEAD
                                 width: 230,
                                 child: Text('وصف description'),
                               ),
                               Text('الثمن',
+=======
+                                width: 250,
+                                /* child:
+                                    Text('${this.widget.product.description}'),*/
+                              ),
+
+                              // price
+                              Text('${this.widget.product.price}',
+>>>>>>> 37bef64 (product detail integration)
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16))
@@ -128,7 +182,11 @@ class _AnnonceState extends State<Annonce> {
                         )
                       ],
                     ),
+<<<<<<< HEAD
                   ))
+=======
+                  )),
+>>>>>>> 37bef64 (product detail integration)
                 ],
               )),
               Align(

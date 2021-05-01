@@ -1,11 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+/*
+>>>>>>> 37bef64 (product detail integration)
 import 'package:woocomerce_app/api_service.dart';
 import 'package:woocomerce_app/models/customer.dart';
 import 'package:woocomerce_app/utils/form_helper.dart';
 import 'package:woocomerce_app/utils/progressHUD.dart';
+<<<<<<< HEAD
 import 'package:woocomerce_app/utils/validator_service.dart';
 
+=======
+import 'package:woocomerce_app/utils/validator_service.dart';*/
+/*
+>>>>>>> 37bef64 (product detail integration)
 class SignupPage extends StatefulWidget {
   SignupPage({Key key}) : super(key: key);
 
@@ -14,15 +23,25 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+<<<<<<< HEAD
   APIService apiService;
   CustomerModel model;
+=======
+  /*APIService apiService;
+  CustomerModel model;*/
+>>>>>>> 37bef64 (product detail integration)
   GlobalKey<FormState> globalkey = GlobalKey<FormState>();
   bool hidePassword = true;
   bool isApiCallProcess = false;
   @override
   void initState() {
+<<<<<<< HEAD
     apiService = new APIService();
     model = new CustomerModel();
+=======
+    /*apiService = new APIService();
+    model = new CustomerModel();*/
+>>>>>>> 37bef64 (product detail integration)
     super.initState();
   }
 
@@ -184,3 +203,7 @@ class _SignupPageState extends State<SignupPage> {
     return false;
   }
 }
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 37bef64 (product detail integration)
