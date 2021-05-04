@@ -1,9 +1,13 @@
+import 'package:first_flutter_app/API/models/product.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/compount/Annonce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyCart extends StatefulWidget {
+  MyCart({Key key, this.product1}) : super(key: key);
+
+  Product product1;
   @override
   _MyCartState createState() => _MyCartState();
 }
@@ -56,13 +60,16 @@ class _MyCartState extends State<MyCart> {
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          _buildCardCart('images/cow1.jpg', 'title', '3000dh'),
                           _buildCardCart(
+                              this.widget.product1.images[0].src,
+                              this.widget.product1.name,
+                              this.widget.product1.price),
+                          /*  _buildCardCart(
                               'images/chevre1.jpg', 'title', '3000dh'),
                           _buildCardCart(
                               'images/mouton1.jpg', 'title', '3000dh'),
                           _buildCardCart(
-                              'images/mouton2.jpg', 'title', '3000dh'),
+                              'images/mouton2.jpg', 'title', '3000dh'),*/
                           SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -179,7 +186,7 @@ class _MyCartState extends State<MyCart> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage(imgPath),
+                      image: NetworkImage(imgPath),
                       fit: BoxFit.cover,
                     ),
                   )),
@@ -229,7 +236,7 @@ class _MyCartState extends State<MyCart> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: AssetImage(imgPath),
+                  image: NetworkImage(imgPath),
                   fit: BoxFit.cover,
                 ),
               ),

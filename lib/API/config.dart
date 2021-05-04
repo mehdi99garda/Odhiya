@@ -19,9 +19,9 @@ class Config {
 >>>>>>> 37bef64 (product detail integration)
   //static String ="";
   //start add to cart
-  static String addtoCartURL = "addtocart";
+  static String addtoCartURL = "panier";
   static String cartURL = "cart";
-  static String userID = "5";
+  static String userID = "15";
 
   // end add to cart
 }

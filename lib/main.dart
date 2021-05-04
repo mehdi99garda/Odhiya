@@ -17,6 +17,7 @@ import 'package:flutter/widgets.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 =======
 import 'package:first_flutter_app/pages/SignupPage.dart';
+import 'package:first_flutter_app/pages/base_page.dart';
 import 'package:first_flutter_app/pages/categories.dart';
 import 'package:first_flutter_app/pages/events.dart';
 import 'package:first_flutter_app/pages/loadingpage.dart';
@@ -25,7 +26,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:first_flutter_app/pages/compount/Annonce.dart';
+<<<<<<< HEAD
 >>>>>>> 37bef64 (product detail integration)
+=======
+import 'package:provider/provider.dart';
+import 'package:first_flutter_app/provider/loader_provider.dart';
+import 'package:first_flutter_app/provider/cart_provider.dart';
+>>>>>>> 8197442 (My secod commit)
 
 void main() => runApp(MyApp());
 
@@ -50,6 +57,7 @@ class _MyAppState extends State<MyApp> {
 >>>>>>> 37bef64 (product detail integration)
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Directionality(
@@ -349,5 +357,64 @@ class _MyAppState extends State<MyApp> {
 >>>>>>> 37bef64 (product detail integration)
       },
     );
+=======
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => LoderProvider(),
+            child: BasePage(),
+          ),
+
+          //
+          ChangeNotifierProvider(
+            create: (context) => CartProvider(),
+            child: Annonce(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Scaffold(
+              body: LoadingPage(),
+            ),
+          ),
+          routes: {
+            'searchpage': (context) {
+              return SearchPage();
+            },
+            'home': (context) {
+              return Home();
+            },
+            'main': (context) {
+              return MyApp();
+            },
+            'annonce': (context) {
+              return Annonce();
+            },
+            'MyCart': (context) {
+              return MyCart();
+            },
+            'Login': (context) {
+              return LoginPage();
+            },
+            'part2_add_ad': (context) {
+              return DescriptionAd();
+            },
+            'part3_add_ad': (context) {
+              return Descriptiondetail();
+            },
+            'events': (context) {
+              return Events();
+            },
+            'signup': (context) {
+              return SignupPage();
+            },
+            'login': (context) {
+              return Login();
+            },
+          },
+        ));
+>>>>>>> 8197442 (My secod commit)
   }
 }
