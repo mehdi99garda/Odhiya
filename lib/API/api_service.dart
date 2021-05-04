@@ -198,11 +198,17 @@ class APIService {
     CartResponseModel responseModel;
 
     try {
-      var response = await Dio().post(Config.url + Config.addtoCartURL,
-          data: model.toJson(),
-          options: new Options(headers: {
-            HttpHeaders.connectionHeader: "application/json",
-          }));
+      var response = await Dio().post(
+        Config.url +
+            Config.addtoCartURL +
+            "?consumer_key=${Config.key}&consumer_secret=${Config.secret}",
+        data: model.toJson(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         responseModel = CartResponseModel.fromJson(response.data);
       }
