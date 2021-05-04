@@ -2,7 +2,10 @@ class CartResponseModel {
   bool status;
   List<CartItem> data;
 
-  CartResponseModel({this.status, this.data});
+  CartResponseModel({
+    this.status,
+    this.data,
+  });
 
   CartResponseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
