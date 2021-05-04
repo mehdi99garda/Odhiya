@@ -1,3 +1,6 @@
+import 'package:first_flutter_app/API/models/cart_request_model.dart';
+import 'package:first_flutter_app/pages/MyCart.dart';
+import 'package:first_flutter_app/provider/cart_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -11,7 +14,11 @@ class Annonce extends StatefulWidget {
 class _AnnonceState extends State<Annonce> {
 =======
 import 'package:first_flutter_app/API/models/product.dart';
-import 'package:first_flutter_app/pages/compount/expand_text.dart';
+import 'package:first_flutter_app/pages/MyCart.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
+import 'package:first_flutter_app/provider/loader_provider.dart';
+import 'package:provider/provider.dart';
 
 class Annonce extends StatefulWidget {
   Annonce({Key key, this.product}) : super(key: key);
@@ -20,6 +27,8 @@ class Annonce extends StatefulWidget {
   _AnnonceState createState() => _AnnonceState();
 
   Product product;
+
+  CartProducts cartProducts = new CartProducts();
 }
 
 class _AnnonceState extends State<Annonce> {
@@ -93,11 +102,11 @@ class _AnnonceState extends State<Annonce> {
 <<<<<<< HEAD
 =======
                         // HtML
-                        ExpandText(
+                        /* ExpandText(
                           labelHeader: "Product Details",
                           shortDec: this.widget.product.shortDescription,
                           dec: this.widget.product.description,
-                        ),
+                        ),*/
 
                         //END HTML
 >>>>>>> 37bef64 (product detail integration)
@@ -121,6 +130,7 @@ class _AnnonceState extends State<Annonce> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+<<<<<<< HEAD
                               Container(
 <<<<<<< HEAD
                                 width: 230,
@@ -131,14 +141,39 @@ class _AnnonceState extends State<Annonce> {
                                 width: 250,
                                 /* child:
                                     Text('${this.widget.product.description}'),*/
+=======
+                              // start HTML
+                              Html(
+                                data: this.widget.product.description,
+                                style: {
+                                  "div": Style(
+                                    padding: EdgeInsets.only(top: 5, bottom: 5),
+                                    fontSize: FontSize.medium,
+                                  ),
+                                },
+>>>>>>> 7e2cc2e (Page Details)
                               ),
+                              // END HTML
+                              Container(
+                                  width: 150,
+                                  height: 150,
+                                  child:
+                                      // Text('${this.widget.product.description}'),*/
 
+<<<<<<< HEAD
                               // price
                               Text('${this.widget.product.price}',
 >>>>>>> 37bef64 (product detail integration)
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16))
+=======
+                                      // price
+                                      Text('${this.widget.product.price}',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16)))
+>>>>>>> 7e2cc2e (Page Details)
                             ],
                           ),
                         ),
@@ -238,7 +273,30 @@ class _AnnonceState extends State<Annonce> {
                               Icon(Icons.add_shopping_cart, color: Colors.white)
                             ],
                           ),
-                          onPressed: () {},
+                          // start le buttom ADD TO CART
+                          onPressed: () {
+                            /* Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MyCart(product1: this.widget.product)));*/
+
+                            /*Provider.of<LoderProvider>(context, listen: false)
+                                .setLoadingStatus(true);*/
+                            var cartProvider = Provider.of<CartProvider>(
+                                context,
+                                listen: false);
+
+                            this.widget.cartProducts.productId =
+                                this.widget.product.id;
+                            cartProvider.addToCart(this.widget.cartProducts,
+                                (val) {
+                              /*     Provider.of<LoderProvider>(context, listen: false)
+                                  .setLoadingStatus(false);*/
+                              print(val);
+                            });
+                          },
+                          // END BUTTOM ADD TO CART
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(40.0))),
                       MaterialButton(
