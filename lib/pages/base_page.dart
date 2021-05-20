@@ -20,7 +20,7 @@ class BasePageState<T extends BasePage> extends State<T> {
         appBar: _buildAppBar(),
         body: ProgressHUD(
           child: pageUI(),
-          inAsyncCall: isApiCallProcess,
+          inAsyncCall: loaderModel.isApiCallProcess,
           opacity: 0.3,
         ),
         // child: Text(this.widget.categoryId.toString()),

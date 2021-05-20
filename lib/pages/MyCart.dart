@@ -1,157 +1,181 @@
+/*import 'package:first_flutter_app/API/models/cart_response_model.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/compount/Annonce.dart';
+import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:first_flutter_app/API/models/product.dart';
+import 'package:provider/provider.dart';
+import 'package:first_flutter_app/pages/provider/loader_provider.dart';
+
 
 class MyCart extends StatefulWidget {
   @override
   _MyCartState createState() => _MyCartState();
+  MyCart({Key key, this.data}) : super(key: key);
+
+  CartItem data;
 }
 
 class _MyCartState extends State<MyCart> {
+  @override
+  void initState() {
+    super.initState();
+    var cartItemsList = Provider.of<CartProvider>(context, listen: false);
+    cartItemsList.resetStreams();
+    cartItemsList.fetchCartItems();
+  }
+
   bool isCartEmpty = false;
   int nbr_item_cart = 4;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              toolbarHeight: 30,
+    return Consumer<LoderProvider>(builder: (context, loaderModel, child) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
               backgroundColor: Colors.white,
-              elevation: 0,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back_outlined, color: Colors.black),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              appBar: AppBar(
+                toolbarHeight: 30,
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back_outlined, color: Colors.black),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-            body: Container(
-                padding: EdgeInsets.all(5),
-                child: isCartEmpty
-                    ? Container(
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Icon(Icons.shopping_basket_outlined, size: 50),
-                              Text('سلتك فارغة',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        ),
-                      )
-                    : ListView(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'سلتي(' + nbr_item_cart.toString() + ')',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+              body: Container(
+                  padding: EdgeInsets.all(5),
+                  child: isCartEmpty
+                      ? Container(
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Icon(Icons.shopping_basket_outlined, size: 50),
+                                Text('سلتك فارغة',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold))
+                              ],
                             ),
                           ),
-                          _buildCardCart('images/cow1.jpg', 'title', '3000dh'),
-                          _buildCardCart(
+                        )
+                      : ListView(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'سلتي(' + nbr_item_cart.toString() + ')',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            _buildCardCart(
+                                this.widget.data.thumbnail,
+                                this.widget.data.productName,
+                                this.widget.data.productSalePrice),
+                            /* _buildCardCart(
                               'images/chevre1.jpg', 'title', '3000dh'),
                           _buildCardCart(
                               'images/mouton1.jpg', 'title', '3000dh'),
                           _buildCardCart(
-                              'images/mouton2.jpg', 'title', '3000dh'),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'مقترحات عليك',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              'images/mouton2.jpg', 'title', '3000dh'),*/
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'مقترحات عليك',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
                             ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5, bottom: 5),
+                              height: 100,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  _buildListCard('images/slide1.png', 'price'),
+                                  _buildListCard('images/slide3.jpg', 'price'),
+                                  _buildListCard('images/chevre2.jpg', 'price'),
+                                  _buildListCard('images/mouton2.jpg', 'price'),
+                                ],
+                              ),
+                            )
+                          ],
+                        )),
+              bottomNavigationBar: !isCartEmpty
+                  ? Container(
+                      padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                      height: 70,
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          Divider(
+                            color: Colors.green.withOpacity(0.5),
+                            height: 5,
+                            thickness: 2,
+                            indent: 5,
+                            endIndent: 5,
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 5, bottom: 5),
-                            height: 100,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.only(top: 10),
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildListCard('images/slide1.png', 'price'),
-                                _buildListCard('images/slide3.jpg', 'price'),
-                                _buildListCard('images/chevre2.jpg', 'price'),
-                                _buildListCard('images/mouton2.jpg', 'price'),
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
-            bottomNavigationBar: !isCartEmpty
-                ? Container(
-                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
-                    height: 70,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Divider(
-                          color: Colors.green.withOpacity(0.5),
-                          height: 5,
-                          thickness: 2,
-                          indent: 5,
-                          endIndent: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10),
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'المجموع : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      '12000 ' + 'د.م',
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.teal),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              RaisedButton(
-                                  color: Colors.teal,
+                                Container(
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Check out',
-                                        style: TextStyle(color: Colors.white),
+                                        'المجموع : ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        '12000 ' + 'د.م',
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.teal),
                                       )
                                     ],
                                   ),
-                                  onPressed: () {},
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(40.0))),
-                            ],
+                                ),
+                                RaisedButton(
+                                    color: Colors.teal,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Check out',
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
+                                    onPressed: () {},
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(40.0))),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Text('')),
-      ),
-    );
+                        ],
+                      ),
+                    )
+                  : Text('')),
+        ),
+      );
+    });
   }
 
   Widget _buildCardCart(String imgPath, String title, String price) {
-    return InkWell(
+    return new Consumer<CartProvider>(builder: (context,cartModel,child){
+      if(cartModel.cartItems != null && cartModel.cartItems.length >0){
+        return InkWell(
       onTap: () {
         //Navigator.of(context).pushNamed('annonce');
       },
@@ -179,7 +203,7 @@ class _MyCartState extends State<MyCart> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage(imgPath),
+                      image: NetworkImage(imgPath),
                       fit: BoxFit.cover,
                     ),
                   )),
@@ -211,6 +235,8 @@ class _MyCartState extends State<MyCart> {
             ],
           )),
     );
+      }
+    },)
   }
 
   Widget _buildListCard(String imgPath, String price) {
@@ -260,3 +286,4 @@ class _MyCartState extends State<MyCart> {
     );
   }
 }
+*/

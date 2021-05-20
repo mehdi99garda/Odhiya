@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 //end
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:first_flutter_app/API/models/cart_request_model.dart';
 import 'package:first_flutter_app/API/models/cart_response_model.dart';
@@ -13,8 +11,8 @@ import 'package:first_flutter_app/API/models/category.dart';
 
 import 'package:dio/dio.dart';
 import 'package:first_flutter_app/API/models/product.dart';
-import 'config.dart';
 import 'models/login_model.dart';
+import 'package:first_flutter_app/API/config.dart';
 
 class APIService {
   // start class APIService
@@ -181,15 +179,19 @@ class APIService {
   // Start method Add To Cart
 
   Future<CartResponseModel> addtoCart(CartRequestModel model) async {
-    model.userId = int.parse(Config.userID);
+    model.userId = int.parse(Config.userId);
     CartResponseModel responseModel;
 
     try {
-      var response = await Dio().post(Config.url + Config.addtoCartURL,
-          data: model.toJson(),
-          options: new Options(headers: {
-            HttpHeaders.connectionHeader: "application/json",
-          }));
+      var response = await Dio().post(
+        Config.url + Config.addtoCartURL,
+        data: model.toJson(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         responseModel = CartResponseModel.fromJson(response.data);
       }
@@ -213,7 +215,7 @@ class APIService {
     try {
       String url = Config.url +
           Config.cartURL +
-          "?user_id=${Config.userID}&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+          "?user_id=${Config.userId}&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
 
       print(url);
       var response = await Dio().get(url,

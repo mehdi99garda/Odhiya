@@ -1,4 +1,7 @@
 import 'package:first_flutter_app/API/models/cart_request_model.dart';
+import 'package:first_flutter_app/API/models/cart_response_model.dart';
+import 'package:first_flutter_app/pages/MyCart.dart';
+import 'package:first_flutter_app/pages/cart_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -9,6 +12,7 @@ import 'package:flutter_html/style.dart';
 import 'package:provider/provider.dart';
 import 'package:first_flutter_app/pages/provider/loader_provider.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
+import 'package:first_flutter_app/widgets/widget_home_products.dart';
 
 class Annonce extends StatefulWidget {
   @override
@@ -209,6 +213,7 @@ class _AnnonceState extends State<Annonce> {
                             var cartProvider = Provider.of<CartProvider>(
                                 context,
                                 listen: false);
+                            this.widget.cartProducts.quantity = 1;
                             this.widget.cartProducts.productId =
                                 this.widget.product.id;
                             cartProvider.addToCart(this.widget.cartProducts,
@@ -217,6 +222,17 @@ class _AnnonceState extends State<Annonce> {
                                   .setLoadingStatus(false);
                               print(val);
                             });
+                            //vers la page MyCart
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        CartPage()));
+
+                            /* MaterialPageRoute(
+                                    builder: (context) => MyCart(
+                                        product_1: this.widget.product)));*/
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(40.0))),

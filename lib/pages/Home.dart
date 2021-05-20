@@ -6,6 +6,7 @@ import 'package:first_flutter_app/pages/accueil.dart';
 import 'package:first_flutter_app/pages/categories.dart';
 import 'package:first_flutter_app/pages/login.dart';
 import 'package:first_flutter_app/pages/myaccount.dart';
+import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,6 +14,8 @@ import 'package:flutter/widgets.dart';
 import 'ChatPage.dart';
 import 'LoginPage.dart';
 import 'SignupPage.dart';
+import 'package:provider/provider.dart';
+import 'package:first_flutter_app/pages/cart_page.dart';
 
 class Home extends StatefulWidget {
   static bool isConnected = false;
@@ -690,16 +693,21 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                           Navigator.of(context).pushNamed('searchpage');
                         }),
                     InkWell(
-                      onTap: () {
+                      /* onTap: () {
                         Navigator.of(context).pushNamed('MyCart');
-                      },
+                      },*/
                       child: Stack(
                         children: [
+                          //Mon Panier
                           IconButton(
                               icon: Icon(Icons.shopping_cart,
                                   color: Colors.black),
                               onPressed: () {
-                                Navigator.of(context).pushNamed('MyCart');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CartPage()));
                               }),
                           Positioned(
                               top: 0,
@@ -709,7 +717,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                                 padding: EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                     color: Colors.red, shape: BoxShape.circle),
-                                child: Text(countCart.toString(),
+                                child: Text(
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .cartItems
+                                        .length
+                                        .toString(),
                                     style: TextStyle(color: Colors.white)),
                               ))
                         ],

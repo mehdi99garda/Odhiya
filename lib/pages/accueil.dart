@@ -89,13 +89,13 @@ class _AccueilState extends State<Accueil> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
+        /*  Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.grey[200]),
           child: WidgetHomeProducts(
-            tagId: Config.chevre_fr,
+            tagId: Config.mouton,
           ),
-        ),
+        ),*/
         SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(right: 10),
@@ -104,11 +104,11 @@ class _AccueilState extends State<Accueil> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
+        /*  Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.grey[200]),
           child: WidgetHomeProducts(tagId: Config.vache),
-        )
+        )*/
       ],
     );
   }

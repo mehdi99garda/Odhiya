@@ -2,9 +2,10 @@ import 'package:first_flutter_app/pages/AddPub/Add_description.dart';
 import 'package:first_flutter_app/pages/AddPub/description_detail.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/LoginPage.dart';
-import 'package:first_flutter_app/pages/MyCart.dart';
+//import 'package:first_flutter_app/pages/MyCart.dart';
 import 'package:first_flutter_app/pages/SearchPage.dart';
 import 'package:first_flutter_app/pages/SignupPage.dart';
+import 'package:first_flutter_app/pages/cart_page.dart';
 import 'package:first_flutter_app/pages/categories.dart';
 import 'package:first_flutter_app/pages/compount/Annonce.dart';
 import 'package:first_flutter_app/pages/events.dart';
@@ -35,8 +36,16 @@ class _MyAppState extends State<MyApp> {
             child: BasePage(),
           ),
           ChangeNotifierProvider(
+            create: (context) => LoderProvider(),
+            child: Annonce(),
+          ),
+          ChangeNotifierProvider(
             create: (context) => CartProvider(),
             child: Annonce(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CartProvider(),
+            child: CartPage(),
           ),
         ],
         child: MaterialApp(
@@ -63,9 +72,9 @@ class _MyAppState extends State<MyApp> {
             'annonce': (context) {
               return Annonce();
             },
-            'MyCart': (context) {
+            /* 'MyCart': (context) {
               return MyCart();
-            },
+            },*/
             'Login': (context) {
               return LoginPage();
             },

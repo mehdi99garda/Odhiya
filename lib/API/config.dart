@@ -10,13 +10,13 @@ class Config {
   static String productsURL = "products";
   static String mouton = "455";
   static String vache = "465";
-  static String chevre_ar = "467";
-  static String chevre_fr = "459";
+  //static String chevre_ar = "467";
+  //static String chevre_fr = "459";
   //static String ="";
   //start add to cart
   static String addtoCartURL = "addtocart";
   static String cartURL = "cart";
-  static String userID = "15";
+  static String userId = "15";
   static String urll = "https://odhiya.com/wp-json/wc/v3/wp-json/wp/v2/media";
 
   // end add to cart

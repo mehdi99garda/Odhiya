@@ -90,7 +90,7 @@ class _CategoriesState extends State<Categories> {
         if (select_chevre) ...[
           Container(
             height: MediaQuery.of(context).size.height / 1.4,
-            child: WidgetCategorieProducts(tagId: Config.chevre_fr),
+            child: WidgetCategorieProducts(tagId: Config.mouton),
           )
         ],
       ],

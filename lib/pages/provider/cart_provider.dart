@@ -7,7 +7,7 @@ class CartProvider with ChangeNotifier {
   APIService _apiService;
   List<CartItem> _cartItems;
 
-  List<CartItem> get CartItems => _cartItems;
+  List<CartItem> get cartItems => _cartItems;
   double get totalRecords => _cartItems.length.toDouble();
 
   CartProvider() {
@@ -42,12 +42,44 @@ class CartProvider with ChangeNotifier {
     }
     requestModel.products.add(product);
 
-    await _apiService.addtoCart(requestModel).then((cartResponseModel) {
-      if (cartResponseModel.data != null) {
+    await _apiService.addtoCart(requestModel).then((responseModel) {
+      if (responseModel.data != null) {
         _cartItems = [];
-        _cartItems.addAll(cartResponseModel.data);
+        _cartItems.addAll(responseModel.data);
       }
-      onCallback(cartResponseModel);
+      onCallback(responseModel);
+      notifyListeners();
+    });
+  }
+
+  fetchCartItems() async {
+    if (_cartItems == null) resetStreams();
+
+    await _apiService.getCartItems().then((responseModel) {
+      if (responseModel.data != null) {
+        _cartItems.addAll(responseModel.data);
+      }
+      notifyListeners();
+    });
+  }
+
+  void updateCart(Function onCallback) async {
+    CartRequestModel requestModel = new CartRequestModel();
+    requestModel.products = new List<CartProducts>();
+
+    if (_cartItems == null) resetStreams();
+
+    _cartItems.forEach((element) {
+      requestModel.products.add(new CartProducts(
+          productId: element.productId, quantity: element.qty));
+    });
+
+    await _apiService.addtoCart(requestModel).then((responseModel) {
+      if (responseModel.data != null) {
+        _cartItems = [];
+        _cartItems.addAll(responseModel.data);
+      }
+      onCallback(responseModel);
       notifyListeners();
     });
   }
