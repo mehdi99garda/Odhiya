@@ -16,7 +16,7 @@ class _MyCartState extends State<MyCart> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: Home.lang_ar ? TextDirection.rtl : TextDirection.ltr,
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -156,60 +156,87 @@ class _MyCartState extends State<MyCart> {
         //Navigator.of(context).pushNamed('annonce');
       },
       child: Container(
-          margin: EdgeInsets.all(5),
-          width: MediaQuery.of(context).size.width - 20,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              //border: Border.all(color: Colors.green),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 5,
-                  offset: Offset(0, 3), // changes position of shadow
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 5,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    height: 80,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10)),
+                      image: DecorationImage(
+                        image: AssetImage(imgPath),
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+                Container(
+                  height: 80,
+                  width: 150,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(title),
+                      Text(price,
+                          style: TextStyle(
+                              color: Colors.teal,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
+                    ],
+                  ),
+                ),
+                MaterialButton(
+                  minWidth: 20,
+                  elevation: 0,
+                  color: Colors.white,
+                  child: Icon(
+                    Icons.delete_forever,
+                    color: Colors.teal,
+                    size: 30,
+                  ),
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => CupertinoAlertDialog(
+                              title: Text('remove from your cart ?'),
+                              actions: [
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('No',
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.blue))),
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Ok',
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.blue))),
+                              ],
+                            ));
+                  },
                 ),
               ],
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  height: 80,
-                  width: 90,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: AssetImage(imgPath),
-                      fit: BoxFit.cover,
-                    ),
-                  )),
-              Container(
-                width: 150,
-                child: Column(
-                  children: [
-                    Text(title),
-                    Text(price,
-                        style: TextStyle(
-                            color: Colors.teal,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16)),
-                  ],
-                ),
-              ),
-              MaterialButton(
-                minWidth: 20,
-                elevation: 0,
-                onPressed: () {},
-                color: Colors.white,
-                child: Icon(
-                  Icons.delete_forever,
-                  color: Colors.teal,
-                  size: 30,
-                ),
-                shape: CircleBorder(),
-              ),
-            ],
-          )),
+            )),
+      ),
     );
   }
 

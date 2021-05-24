@@ -6,18 +6,18 @@ import 'package:first_flutter_app/API/models/category.dart' as categoryModel;
 import 'package:first_flutter_app/API/models/product.dart';
 //import 'package:first_flutter_app/provider/products_provider.dart';
 
-class WidgetHomeProducts extends StatefulWidget {
-  WidgetHomeProducts({Key key, this.tagId, this.data}) : super(key: key);
+class WidgetCategorieProducts extends StatefulWidget {
+  WidgetCategorieProducts({Key key, this.tagId}) : super(key: key);
 
   //String labelName;
   String tagId;
-  Product data;
 
   @override
-  _WidgetHomeProductsState createState() => _WidgetHomeProductsState();
+  _WidgetCategorieProductsState createState() =>
+      _WidgetCategorieProductsState();
 }
 
-class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
+class _WidgetCategorieProductsState extends State<WidgetCategorieProducts> {
   APIService apiService;
 
   @override
@@ -47,10 +47,11 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
 
   Widget _buildList(List<Product> itemes) {
     return Container(
-      padding: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+      padding: EdgeInsets.only(top: 5, left: 1, right: 1, bottom: 1),
       height: 110,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+      child: GridView.builder(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemCount: itemes.length,
         itemBuilder: (context, index) {
           var data = itemes[index];
@@ -61,13 +62,12 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
                   MaterialPageRoute(
                       builder: (context) => Annonce(product: data)));
             },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
+            child: Center(
               child: Stack(
                 children: [
                   Container(
-                    height: 90,
-                    width: 100,
+                    height: 100,
+                    width: 110,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
@@ -78,7 +78,7 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
                   ),
                   Positioned(
                       left: 10,
-                      bottom: 0,
+                      bottom: -1,
                       right: 10,
                       child: Center(
                         child: Container(
@@ -87,7 +87,9 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
                                 color: Colors.white,
                               ),
                               color: Colors.teal,
-                              borderRadius: BorderRadius.circular(20)),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10))),
                           alignment: Alignment.center,
                           width: 80,
                           height: 25,

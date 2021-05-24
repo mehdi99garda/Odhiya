@@ -35,13 +35,13 @@ class CartItem {
 
   CartItem(
       {this.productId,
-      this.productName,
-      this.productRegularPrice,
-      this.productSalePrice,
-      this.thumbnail,
-      this.qty,
-      this.lineSubtotal,
-      this.lineTotal});
+        this.productName,
+        this.productRegularPrice,
+        this.productSalePrice,
+        this.thumbnail,
+        this.qty,
+        this.lineSubtotal,
+        this.lineTotal});
 
   CartItem.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];

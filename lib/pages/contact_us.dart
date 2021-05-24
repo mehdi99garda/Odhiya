@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Home.dart';
+import 'Home.dart';
 
-class Descriptiondetail extends StatefulWidget {
+class ContactUs extends StatefulWidget {
   @override
-  _DescriptiondetailState createState() => _DescriptiondetailState();
+  _ContactUsState createState() => _ContactUsState();
 }
 
-class _DescriptiondetailState extends State<Descriptiondetail> {
+class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -29,7 +29,7 @@ class _DescriptiondetailState extends State<Descriptiondetail> {
           child: ListView(
             children: [
               Container(
-                  height: 55,
+                  height: 60,
                   margin: EdgeInsets.only(right: 16, left: 16, top: 20),
                   padding: EdgeInsets.only(right: 12, left: 12),
                   decoration: BoxDecoration(
@@ -42,16 +42,16 @@ class _DescriptiondetailState extends State<Descriptiondetail> {
                             blurRadius: 6)
                       ]),
                   child: TextField(
-                    keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(top: 14),
-                        labelText: Home.lang_ar ? 'العنوان' : 'Title'),
+                        labelText:
+                            Home.lang_ar ? 'الاسم الكامل' : 'Nom Complet'),
                   )),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Container(
-                  //height: 60,
+                  height: 60,
                   margin: EdgeInsets.only(right: 16, left: 16, top: 20),
                   padding: EdgeInsets.only(right: 12, left: 12),
                   decoration: BoxDecoration(
@@ -64,38 +64,39 @@ class _DescriptiondetailState extends State<Descriptiondetail> {
                             blurRadius: 6)
                       ]),
                   child: TextFormField(
-                    maxLines: 5,
-                    style: TextStyle(color: Colors.black87),
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(top: 14),
-                        labelText: Home.lang_ar ? 'وصف' : 'Description'),
-                  )),
-              SizedBox(height: 20),
-              Container(
-                  height: 55,
-                  margin: EdgeInsets.only(right: 16, left: 16, top: 20),
-                  padding: EdgeInsets.only(right: 12, left: 12),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                            blurRadius: 6)
-                      ]),
-                  child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(top: 14),
-                        labelText: Home.lang_ar ? 'المدينة' : 'Ville'),
+                        labelText:
+                            Home.lang_ar ? 'بريد إلكتروني' : 'Email Adresse'),
                   )),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Container(
-                  height: 55,
+                  height: 60,
+                  margin: EdgeInsets.only(right: 16, left: 16, top: 20),
+                  padding: EdgeInsets.only(right: 12, left: 12),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 2),
+                            blurRadius: 6)
+                      ]),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(color: Colors.black87),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(top: 14),
+                        labelText: Home.lang_ar ? 'هاتف' : 'Telephone'),
+                  )),
+              SizedBox(height: 10),
+              Container(
+                  height: 60,
                   margin: EdgeInsets.only(right: 16, left: 16, top: 20),
                   padding: EdgeInsets.only(right: 12, left: 12),
                   decoration: BoxDecoration(
@@ -108,12 +109,32 @@ class _DescriptiondetailState extends State<Descriptiondetail> {
                             blurRadius: 6)
                       ]),
                   child: TextField(
-                    keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(top: 14),
-                        labelText: Home.lang_ar ? 'الثمن' : 'Prix'),
+                        labelText: Home.lang_ar ? 'موضوع' : 'Sujet'),
+                  )),
+              SizedBox(height: 10),
+              Container(
+                  margin: EdgeInsets.only(right: 16, left: 16, top: 20),
+                  padding: EdgeInsets.only(right: 12, left: 12),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 2),
+                            blurRadius: 6)
+                      ]),
+                  child: TextField(
+                    maxLines: 5,
+                    style: TextStyle(color: Colors.black87),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(top: 14),
+                        labelText: Home.lang_ar ? 'رسالة' : 'Message'),
                   )),
               SizedBox(height: 30),
               Container(
@@ -122,10 +143,12 @@ class _DescriptiondetailState extends State<Descriptiondetail> {
                 child: RaisedButton(
                     color: Colors.teal,
                     child: Text(
-                      Home.lang_ar ? 'موافق' : 'Valider',
+                      Home.lang_ar ? 'إرسال' : 'Envoyer',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      //Navigator.of(context).pushNamed('');
+                    },
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(40.0))),
               )
