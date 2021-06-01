@@ -1,0 +1,6 @@
+#crée par hamza
+
+#AuthName "Page d'administration protégée"
+#AuthType Basic
+#AuthUserFile "/var/www/odhiya.com/phpmyadmin/.htpasswd"
+#Require valid-user
