@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:first_flutter_app/API/models/order_details.dart';
+import 'package:first_flutter_app/API/models/shipping.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +15,12 @@ import 'package:dio/dio.dart';
 import 'package:first_flutter_app/API/models/product.dart';
 import 'config.dart';
 import 'models/login_model.dart';
+
+import 'package:first_flutter_app/API/models/customer_detail_model.dart';
+
+import 'models/order.dart';
+
+import 'dart:developer';
 
 class APIService {
   // start class APIService
@@ -232,6 +240,209 @@ class APIService {
   }
 
   // End method getCartItems
+  //start getcustomerdetail
+
+  /*Future<CustomerDetailsModel> customerDetails() async {
+    CustomerDetailsModel responseModel;
+
+    try {
+      String url = Config.url +
+          Config.customerURL +
+          "/${Config.userId}?&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+
+      var response = await Dio().get(url,
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          }));
+      if (response.statusCode == 200) {
+        responseModel = CustomerDetailsModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return responseModel;
+  }*/
+
+  // end getcustomersdetails
+
+  // start test custemers detail post request
+
+  Future<CustomerDetailsModel> ship(CustomerDetailsModel model) async {
+    model.id = int.parse(Config.userId);
+    try {
+      var response = await Dio().post(
+        Config.url + Config.orderURL,
+        data: model.toJson(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader:
+                'Basic eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyMjU0ODgyMiwibmJmIjoxNjIyNTQ4ODIyLCJleHAiOjE2MjMxNTM2MjIsImRhdGEiOnsidXNlciI6eyJpZCI6IjE0In19fQ.-nuZT1JtlC2JYJqTzWGe7dv52rV8cvd4BlvUAN7A71A',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        model = CustomerDetailsModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      if (e.response.statusCode == 404) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        print(e.requestOptions); //request
+      }
+    }
+    return model;
+  }
+
+  // end test costumer detail ost request
+
+  //start creat order
+  Future<bool> createOrder(OrdersModel model) async {
+    bool isOrderCreated = false;
+    model.customerId = int.parse(Config.userId);
+
+    var authToken =
+        base64.encode(utf8.encode(Config.key + ":" + Config.secret));
+
+    log('data: $model');
+    try {
+      var response = await Dio().post(
+        Config.url + Config.orderURL,
+        data: model.toJson(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: 'Basic $authToken',
+          },
+        ),
+        // body: jsonEncode(model.toJson()),
+      );
+      if (response.statusCode == 201) {
+        isOrderCreated = true;
+      }
+    } catch (error) {
+      print(error);
+    }
+    return isOrderCreated;
+  }
+
+  //end creat order
+
+  //start payment shippping test
+  /* Future<CustomerDetailsModel> customerDetails(CartRequestModel model) async {
+    model.userId = int.parse(Config.userId);
+    CartResponseModel responseModel;
+
+    try {
+      var response = await Dio().post(
+        Config.url + Config.addtoCartURL,
+        data: model.toJson(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        responseModel = CartResponseModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      if (e.response.statusCode == 404) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        print(e.requestOptions); //request
+      }
+    }
+    return responseModel;
+  }*/
+
+  //end payment shipping test
+  //start order
+  Future<List<OrdersModel>> getOrders() async {
+    List<OrdersModel> data = <OrdersModel>[];
+    // String fullOrdersUrl = Config.orderURL +
+    //   "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+
+    try {
+      /* http.Response response = await http.get(
+        Uri.parse(fullOrdersUrl),
+        headers: {"Content-type": "application/json"},
+      );*/
+      String url = Config.url +
+          Config.orderURL +
+          "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+
+      var response = await Dio().get(url,
+          options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json",
+            },
+          ));
+      // List<dynamic> _decodedData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        data = (response.data as List)
+            .map((i) => OrdersModel.fromJson(i))
+            .toList();
+        /*_decodedData.map((e) => OrdersModel.fromJson(e)).toList();*/
+      }
+    } catch (error) {
+      print(error);
+    }
+
+    return data;
+  }
+
+  Future<OrderDetailsModel> getOrdersDetails(int orderId) async {
+    OrderDetailsModel responseModel = OrderDetailsModel();
+    String fullOrderUrl = Config.orderURL +
+        "/" +
+        orderId.toString() +
+        "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+    try {
+      http.Response response = await http.get(
+        Uri.parse(fullOrderUrl),
+        headers: {"Content-type": "application/json"},
+      );
+
+      var _decodedData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        responseModel = OrderDetailsModel.fromJson(_decodedData);
+      }
+    } catch (error) {
+      print(error);
+    }
+
+    return responseModel;
+  }
+
+  /* Future<OrderDetailsModel> getOrdersDetails(int orderId) async {
+    OrderDetailsModel responseModel = OrderDetailsModel();
+    String fullOrderUrl = Config.ordersUrl +
+        "/" +
+        orderId.toString() +
+        "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+    try {
+      http.Response response = await http.get(
+        Uri.parse(fullOrderUrl),
+        headers: {"Content-type": "application/json"},
+      );
+
+      var _decodedData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        responseModel = OrderDetailsModel.fromJson(_decodedData);
+      }
+    } catch (error) {
+      print(error);
+    }
+
+    return responseModel;
+  }*/
+  //end order
 //start
   static Future<String> uploadSingleImage(File file) async {
     var authToken = base64.encode(
@@ -288,5 +499,7 @@ class APIService {
   }
 
 //end
+
+//test for
 
 }

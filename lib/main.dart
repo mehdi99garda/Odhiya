@@ -13,8 +13,10 @@ import 'package:first_flutter_app/pages/contact_us.dart';
 import 'package:first_flutter_app/pages/events.dart';
 import 'package:first_flutter_app/pages/loadingpage.dart';
 import 'package:first_flutter_app/pages/login.dart';
+import 'package:first_flutter_app/pages/orders_page.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:first_flutter_app/pages/provider/loader_provider.dart';
+import 'package:first_flutter_app/pages/provider/orders_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -48,6 +50,10 @@ class _MyAppState extends State<MyApp> {
             create: (context) => CartProvider(),
             child: CartPage(),
           ),
+          // ChangeNotifierProvider(
+          //   create: (context) => OrdersProvider(),
+          //   child: OrdersScreen(),
+          // ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

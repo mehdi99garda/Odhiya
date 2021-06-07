@@ -1,51 +1,87 @@
-/*import 'package:flutter/material.dart';
+import 'package:first_flutter_app/API/config.dart';
 import 'package:first_flutter_app/API/utils/progressHUD.dart';
-import 'package:first_flutter_app/widgets/widget_home_products.dart';
+import 'package:first_flutter_app/pages/provider/cart_provider.dart';
+import 'package:first_flutter_app/pages/provider/loader_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+/*import '../providers/cart_provider.dart';
+import '../providers/loader_provider.dart';
+import '../store/config.dart';
+import '../widgets/utils/progress_indicator.dart';*/
 
 class BasePage extends StatefulWidget {
-  BasePage({Key key}) : super(key: key);
   @override
   BasePageState createState() => BasePageState();
 }
 
 class BasePageState<T extends BasePage> extends State<T> {
-  bool isApiCallProcess = false;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: ProgressHUD(
-        child: pageUI(),
-        inAsyncCall: isApiCallProcess,
-        opacity: 0.3,
-      ),
-      // child: Text(this.widget.categoryId.toString()),
+    return Consumer<LoderProvider>(
+      builder: (context, _loaderModel, child) {
+        return Scaffold(
+          appBar: _buildAppBar(),
+          body: ProgressHUD(
+            inAsyncCall: _loaderModel.isApiCallProcess,
+            opacity: 0.3,
+            child: pageUI(),
+          ),
+        );
+      },
     );
-  } //Scaffold
+  }
+
+  _buildAppBar() {
+    return AppBar(
+      brightness: Brightness.dark,
+      backgroundColor: Theme.of(context).accentColor,
+      automaticallyImplyLeading: true,
+      elevation: 0,
+      title: Text(
+        ' odhiya',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      /*actions: [
+        Icon(Icons.notifications_none, color: Colors.white),
+        SizedBox(width: 20),
+        Icon(Icons.shopping_cart, color: Colors.white),
+        Provider.of<CartProvider>(context, listen: false).cartItems.length == 0
+            ? Container()
+            : Stack(
+                children: [
+                  Icon(
+                    Icons.brightness_1,
+                    size: 20,
+                    color: Colors.green[800],
+                  ),
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: Center(
+                      child: Text(
+                        Provider.of<CartProvider>(context, listen: false)
+                            .cartItems
+                            .length
+                            .toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+        SizedBox(width: 20),
+      ],*/
+    );
+  }
 
   Widget pageUI() {
     return null;
   }
-
-  Widget _buildAppBar() {
-    return AppBar(
-      centerTitle: true,
-      brightness: Brightness.dark,
-      elevation: 0,
-      backgroundColor: Colors.redAccent,
-      automaticallyImplyLeading: true,
-      title: Text(
-        "Odhiya App",
-        style: TextStyle(color: Colors.white),
-      ),
-      actions: [
-        Icon(Icons.notifications_none, color: Colors.white),
-        SizedBox(width: 10),
-        Icon(Icons.shopping_cart, color: Colors.white),
-        SizedBox(width: 10),
-      ],
-    );
-  }
 }
-*/

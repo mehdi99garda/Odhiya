@@ -1,5 +1,7 @@
 import 'package:first_flutter_app/API/utils/progressHUD.dart';
 import 'package:first_flutter_app/pages/Home.dart';
+import 'package:first_flutter_app/pages/shippin_post_page.dart';
+import 'package:first_flutter_app/pages/shipping_billing_page.dart';
 import 'package:first_flutter_app/widgets/widget_cart_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:first_flutter_app/pages/provider/loader_provider.dart';
 import 'package:first_flutter_app/API/models/cart_response_model.dart';
+import 'package:first_flutter_app/pages/verify_address.dart';
+
+import 'orders_page.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -84,7 +89,22 @@ class _CartPageState extends State<CartPage> {
                                 )
                               ],
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyApp()));
+
+                              /* Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          VerifyAddressScreen1()));*/
+                              /* Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OrdersScreen()));*/
+                            },
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(40.0))),
                       ],
