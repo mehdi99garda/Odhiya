@@ -45,25 +45,25 @@ class OrdersModel {
     // map["transaction_id"] = transactionId;
     if (map["shipping"] != null) {
       map["shipping"] = shipping.toJson();
-      // }
-      // if (lineItems != null) {
-      //   map["line_items"] = lineItems.map((e) => e.toJson()).toList();
-      // }
-
-      // map["id"] = orderId;
-      // map["status"] = status;
-      // map["order_key"] = orderNumber;
-      // map["date_created"] = orderDate;
-      // map["date_created"] = paymentMethod;
-      // map["payment_method_title"] = paymentMethodTitle;
-      // map["set_paid"] = setPaid;
-      // map["transaction_id"] = transactionId;
-      // if (lineItems != null) {
-      //   map["line_items"] = lineItems!.map((e) => e.toJson()).toList();
-      // }
-      return map;
     }
+    // if (lineItems != null) {
+    //   map["line_items"] = lineItems.map((e) => e.toJson()).toList();
+    // }
+
+    // map["id"] = orderId;
+    // map["status"] = status;
+    // map["order_key"] = orderNumber;
+    // map["date_created"] = orderDate;
+    // map["date_created"] = paymentMethod;
+    // map["payment_method_title"] = paymentMethodTitle;
+    // map["set_paid"] = setPaid;
+    // map["transaction_id"] = transactionId;
+    // if (lineItems != null) {
+    //   map["line_items"] = lineItems!.map((e) => e.toJson()).toList();
+    // }
+    return map;
   }
+}
 
 // class LineItemsModel {
 //   int productId;
@@ -76,19 +76,18 @@ class OrdersModel {
 //     // this.variationId,
 //   });
 
-  // LineItemsModel.fromJson(Map<String, dynamic> json) {
-  //   productId = json['product_id'];
-  //   quantity = json['quantity'];
-  //   // variationId = json['variation_id'];
-  // }
+// LineItemsModel.fromJson(Map<String, dynamic> json) {
+//   productId = json['product_id'];
+//   quantity = json['quantity'];
+//   // variationId = json['variation_id'];
+// }
 
-  // Map toJson() {
-  //   var map = new Map<String, dynamic>();
-  //   map["product_id"] = productId;
-  //   map["quantity"] = quantity;
-  //   // if (variationId != null) {
-  //   //   map["variation_id"] = variationId;
-  //   // }
-  //   return map;
-  // }
-}
+// Map toJson() {
+//   var map = new Map<String, dynamic>();
+//   map["product_id"] = productId;
+//   map["quantity"] = quantity;
+//   // if (variationId != null) {
+//   //   map["variation_id"] = variationId;
+//   // }
+//   return map;
+// }

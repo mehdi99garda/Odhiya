@@ -302,10 +302,10 @@ class APIService {
     bool isOrderCreated = false;
     model.customerId = int.parse(Config.userId);
 
-    var authToken =
-        base64.encode(utf8.encode(Config.key + ":" + Config.secret));
+    /*var authToken =
+        base64.encode(utf8.encode(Config.key + ":" + Config.secret));*/
 
-    log('data: $model');
+    //log('data: $model');
     try {
       var response = await Dio().post(
         Config.url + Config.orderURL,
@@ -313,7 +313,8 @@ class APIService {
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
-            HttpHeaders.authorizationHeader: 'Basic $authToken',
+            HttpHeaders.authorizationHeader:
+                'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyMjU0ODgyMiwibmJmIjoxNjIyNTQ4ODIyLCJleHAiOjE2MjMxNTM2MjIsImRhdGEiOnsidXNlciI6eyJpZCI6IjE0In19fQ.-nuZT1JtlC2JYJqTzWGe7dv52rV8cvd4BlvUAN7A71A',
           },
         ),
         // body: jsonEncode(model.toJson()),
