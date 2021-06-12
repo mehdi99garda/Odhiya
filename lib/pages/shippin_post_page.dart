@@ -5,6 +5,8 @@ import 'package:first_flutter_app/API/models/customer_detail_model.dart';
 import 'package:first_flutter_app/API/models/order.dart';
 import 'package:first_flutter_app/API/models/shipping.dart';
 import 'package:first_flutter_app/API/utils/form_helper.dart';
+import 'package:first_flutter_app/pages/payment_sceen.dart';
+import 'package:first_flutter_app/pages/paypal_payment.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:first_flutter_app/widgets/widget_order_success.dart';
 import 'package:flutter/material.dart';
@@ -119,8 +121,12 @@ class _MyAppState extends State<MyApp> {
           onPressed: () {
             //  _ordersModel.customerId = 15;
             _ordersModel.shipping = ship;
-
-            _apiService.createOrder(_ordersModel);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PaymentMethodsScreen() /* PaypalPayment()*/));
+            //_apiService.createOrder(_ordersModel);
             /* Navigator.push(con
            text,
                 MaterialPageRoute(builder: (context) => OrdersSuccessWidget()));
@@ -129,7 +135,7 @@ class _MyAppState extends State<MyApp> {
             orderProvider.createOrder(ship);*/
             // await
 
-            log('data: $_ordersModel');
+            // log('data: $_ordersModel');
             /*  setState(() {
               //  _apiService.ship(this.);
               _apiService.ship(_model);

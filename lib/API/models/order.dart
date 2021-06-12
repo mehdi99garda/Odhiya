@@ -8,8 +8,8 @@ class OrdersModel {
 //   DateTime orderDate;
 
   ShippingModel shipping;
-  // String paymentMethod;
-  // String paymentMethodTitle;
+  String paymentMethod;
+  String paymentMethodTitle;
   // bool setPaid;
   // String transactionId;
   //List<LineItemsModel> lineItems;
@@ -20,8 +20,8 @@ class OrdersModel {
     // this.orderNumber,
     // this.status,
     // this.orderDate,
-    // this.paymentMethod,
-    // this.paymentMethodTitle,
+    this.paymentMethod,
+    this.paymentMethodTitle,
     // this.setPaid,
     // this.transactionId,
     // this.lineItems,
@@ -39,13 +39,13 @@ class OrdersModel {
   Map toJson() {
     var map = new Map<String, dynamic>();
     map["customer_id"] = customerId;
-    // map["payment_method"] = paymentMethod;
-    // map["payment_method_title"] = paymentMethodTitle;
+    map["payment_method"] = paymentMethod;
+    map["payment_method_title"] = paymentMethodTitle;
     // map["set_paid"] = setPaid;
     // map["transaction_id"] = transactionId;
-    if (map["shipping"] != null) {
-      map["shipping"] = shipping.toJson();
-    }
+    // if (map["shipping"] != null) {
+    map["shipping"] = shipping.toJson();
+    //}
     // if (lineItems != null) {
     //   map["line_items"] = lineItems.map((e) => e.toJson()).toList();
     // }

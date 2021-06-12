@@ -1,8 +1,10 @@
 import 'package:first_flutter_app/API/utils/progressHUD.dart';
 import 'package:first_flutter_app/pages/Home.dart';
+import 'package:first_flutter_app/pages/payment_sceen.dart';
 import 'package:first_flutter_app/pages/shippin_post_page.dart';
 import 'package:first_flutter_app/pages/shipping_billing_page.dart';
 import 'package:first_flutter_app/widgets/widget_cart_product.dart';
+import 'package:first_flutter_app/widgets/widget_payment_list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -90,6 +92,11 @@ class _CartPageState extends State<CartPage> {
                               ],
                             ),
                             onPressed: () {
+                              /*  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PaymentMethodsScreen()));*/
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

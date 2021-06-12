@@ -21,5 +21,8 @@ class Config {
   static String orderURL = "orders";
   static String currency = "Ksh ";
 
+  static String paypalClientID = "";
+  static String paypalSecretKey = "";
+  static String paypalURL = "https://api.sandbox.paypal.com";
   // end add to cart
 }
