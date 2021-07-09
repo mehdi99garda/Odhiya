@@ -97,6 +97,9 @@ class _SignupPageState extends State<SignupPage> {
                               BorderSide(width: 1, color: Colors.green[300]),
                         ),
                         SizedBox(width: 10),
+
+                        // start authentification with Facebook
+
                         OutlineButton(
                           onPressed: () async {
                             FacebookAuth.instance.login(permissions: [
@@ -129,7 +132,7 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                     SizedBox(height: 10),
-                    Center(
+                    /* Center(
                       child: Stack(
                         children: [
                           Container(
@@ -172,12 +175,24 @@ class _SignupPageState extends State<SignupPage> {
                               ))
                         ],
                       ),
+                    ),*/
+                    SizedBox(height: 10),
+                    TextFormField(
+                      initialValue: !_isLoggedIn ? '' : _userObj["first_name"],
+                      decoration: InputDecoration(
+                        labelText: Home.lang_ar ? 'الاسم' : 'first_name',
+                        prefixIcon: Icon(
+                          Icons.person_sharp,
+                          color: Colors.green[200],
+                        ),
+                      ),
+                      onChanged: (value) => model.firstName = value,
                     ),
                     SizedBox(height: 10),
                     TextFormField(
-                      initialValue: !_isLoggedIn ? '' : _userObj["name"],
+                      initialValue: !_isLoggedIn ? '' : _userObj["last_name"],
                       decoration: InputDecoration(
-                        labelText: Home.lang_ar ? 'الاسم' : 'Name',
+                        labelText: Home.lang_ar ? 'النسب' : 'last_name',
                         prefixIcon: Icon(
                           Icons.person_sharp,
                           color: Colors.green[200],
@@ -206,7 +221,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       onChanged: (value) => model.email = value,
                     ),
-                    TextFormField(
+                    /*TextFormField(
                       obscureText: hidePassword,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -239,7 +254,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                         ),
                       ),
-                    ),
+                    ),*/
                     SizedBox(height: 30),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 30),
