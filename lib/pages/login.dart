@@ -178,8 +178,7 @@ class _LoginState extends State<Login> {
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)),
                         onPressed: () {
-                          /*
-                          FocusScope.of(context).unfocus();
+                          /* FocusScope.of(context).unfocus();
                           var validate = globalKey.currentState.validate();
                           if (!validate) {
                             return Navigator.of(context).pushNamed('home');
@@ -224,14 +223,22 @@ class _LoginState extends State<Login> {
                             apiServices
                                 .loginCustomer(email, password)
                                 .then((ret) => {
-                                      if (ret != null)
+                                      if (ret.success == true)
                                         {
+                                          print(ret.data.email),
+                                          print(ret.data.toJson()),
                                           FormHelper.showMessage(
                                               context,
                                               "Odhia",
                                               "Login Successful",
-                                              "ok",
-                                              () {})
+                                              "ok", () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => (Home()),
+                                              ),
+                                            );
+                                          })
                                         }
                                       else
                                         {
@@ -239,8 +246,15 @@ class _LoginState extends State<Login> {
                                               context,
                                               "Odhia",
                                               "Invalid Successful",
-                                              "ok",
-                                              () {})
+                                              "ok", () {
+                                            FormHelper.showMessage(
+                                                context,
+                                                'Error!!',
+                                                'Something went wrong',
+                                                'Ok', () {
+                                              Navigator.of(context).pop();
+                                            });
+                                          })
                                         }
                                     });
                           }

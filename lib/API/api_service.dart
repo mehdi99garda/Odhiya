@@ -79,11 +79,11 @@ class APIService {
           },
         ), // responseType: ResponseType.json);
       );
-      Map<String, dynamic> decodedData = jsonDecode(response.data);
-      print(decodedData);
+      //  Map<String, dynamic> decodedData = jsonDecode(response.data);
+      // print(decodedData);
       // print('response ${response.data}');
       if (response.statusCode == 200) {
-        model = LoginResponse.fromJson(decodedData);
+        model = LoginResponse.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e.message);
