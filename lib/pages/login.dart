@@ -20,13 +20,13 @@ class _LoginState extends State<Login> {
   bool isApiCallProcess = false;
   APIService apiServices;
 
-  String username;
+  String email;
   String password;
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    apiServices = APIService();
+    apiServices = new APIService();
     super.initState();
   }
 
@@ -59,6 +59,7 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // login with google
                         OutlineButton(
                           onPressed: () {},
                           child: Row(
@@ -77,6 +78,7 @@ class _LoginState extends State<Login> {
                               BorderSide(width: 1, color: Colors.green[300]),
                         ),
                         SizedBox(width: 10),
+                        // login with facebook
                         OutlineButton(
                           onPressed: () async {
                             FacebookAuth.instance.login(permissions: [
@@ -128,7 +130,7 @@ class _LoginState extends State<Login> {
                           color: Colors.green[200],
                         ),
                       ),
-                      onChanged: (value) => username = value,
+                      onChanged: (value) => email = value,
                     ),
                     TextFormField(
                       obscureText: hidePassword,
@@ -168,51 +170,88 @@ class _LoginState extends State<Login> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 30),
                       width: MediaQuery.of(context).size.width,
+
+                      //start login communication
                       child: RaisedButton(
                         child: Text(
                             Home.lang_ar ? 'تسجيل الدخول' : 'Se Connecter',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)),
-                        onPressed: () async {
+                        onPressed: () {
+                          /*
                           FocusScope.of(context).unfocus();
                           var validate = globalKey.currentState.validate();
-                          /*if (!validate) {
+                          if (!validate) {
                             return Navigator.of(context).pushNamed('home');
                           }
 
                           setState(() {
                             isApiCallProcess = true;
                           });
-                          var response =
-                              await apiServices.loginCustomer(username, password);
+
+                          apiServices
+                              .loginCustomer(email, password)
+                              .then((ret) {
+                            if (validate) {
+                              Home.isConnected = true;
+                              //response.data != null
+                              FormHelper.showMessage(context, 'Done',
+                                  'Logged In Successfully', 'Ok', () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => (Home()),
+                                  ),
+                                );
+                              });
+                            } else {
+                              FormHelper.showMessage(context, 'Error!!',
+                                  'Something went wrong', 'Ok', () {
+                                Navigator.of(context).pop();
+                              });
+                            }
+                          });
                           setState(() {
                             isApiCallProcess = false;
                           });*/
-                          if (validate) {
-                            Home.isConnected = true;
-                            //response.data != null
-                            FormHelper.showMessage(
-                                context, 'Done', 'Logged In Successfully', 'Ok',
-                                () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => (Home()),
-                                ),
-                              );
+
+                          //start testing
+                          if (validateAndSave()) {
+                            setState(() {
+                              isApiCallProcess = true;
                             });
-                          } else {
-                            FormHelper.showMessage(context, 'Error!!',
-                                'Something went wrong', 'Ok', () {
-                              Navigator.of(context).pop();
-                            });
+
+                            apiServices
+                                .loginCustomer(email, password)
+                                .then((ret) => {
+                                      if (ret != null)
+                                        {
+                                          FormHelper.showMessage(
+                                              context,
+                                              "Odhia",
+                                              "Login Successful",
+                                              "ok",
+                                              () {})
+                                        }
+                                      else
+                                        {
+                                          FormHelper.showMessage(
+                                              context,
+                                              "Odhia",
+                                              "Invalid Successful",
+                                              "ok",
+                                              () {})
+                                        }
+                                    });
                           }
+                          //end testing
                         },
                         color: Colors.green[200],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
+                      //end loging communication
                     ),
                     Container(
                       child: Row(

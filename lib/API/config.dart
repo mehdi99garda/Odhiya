@@ -3,8 +3,7 @@ class Config {
   static String secret = "cs_ce664a6e71f44c03d7653b93f5e0721bdd945bc3";
   static String url = "https://odhiya.com/wp-json/wc/v3/";
   static String customerURL = "customers";
-  static String tokenURL =
-      "https://odhiya.com/wp-json/wc/v3/wp-json/jwt-auth/v1/token";
+  static String tokenURL = "https://odhiya.com/wp-json/jwt-auth/v1/token";
   static String categoriesURL = "products/categories";
   static String uri = "https://odhiya.com/wp-json/wp/v2/media";
   static String productsURL = "products";
@@ -26,5 +25,8 @@ class Config {
   static String paypalSecretKey =
       "EFB3XOa8hUWb7SdTGrerY8lbB-oE1ChE68KSEAlI_Wgea91e2LbpM4oSwaI8Mz8KOmj1nPkxGlvYAiNs";
   static String paypalURL = "https://api.sandbox.paypal.com";
+
+  // for production app
+  // static String  paypalURL = "https://api.paypal.com";
   // end add to cart
 }

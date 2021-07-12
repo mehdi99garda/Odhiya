@@ -14,6 +14,9 @@ import 'cart_provider.dart';
 //import 'package:http_auth/http_auth.dart';
 
 class PaypalServices {
+  dynamic accessToken =
+      "A21AAJXxNLqofIB_7wNzxdRBrQYJhAV1InyZ5AsB2Nj-W7r9xB2rR0Bvqf2ErB7wLtm-mWgaphEVHCrJtn8QX38V5c97c1NQA";
+
   String domain = "https://api.sandbox.paypal.com"; // for sandbox mode
 //  String domain = "https://api.paypal.com"; // for production mode
 
@@ -22,31 +25,32 @@ class PaypalServices {
 
   String secret = Config.paypalSecretKey;
 
-  String returnURL = "";
-  String cancelURL = "";
+  // String returnURL = "";
+  // String cancelURL = "";
 
   // for getting the access token from Paypal
-  Future<String> getAccessToken() async {
-    try {
-      // var client = BasicAuthClient(clientId, secret);
-      var authToken = base64.encode(
-        utf8.encode(clientId + ":" + secret),
-      );
-      var response = await Dio().post(
-          '${Config.paypalURL}/v1/oauth2/token?grant_type=client_credentials',
-          options: new Options(headers: {
-            HttpHeaders.authorizationHeader: 'Basic $authToken',
-            HttpHeaders.contentTypeHeader: "application/json",
-          }));
-      if (response.statusCode == 200) {
-        final body = response.data;
-        return body["access_token"];
-      }
-      return null;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<String> getAccessToken() async {
+  //   try {
+  //     // var client = BasicAuthClient(clientId, secret);
+  //     //  var authToken = base64.encode(
+  //     //  utf8.encode(clientId + ":" + secret),
+  //     //  );
+  //     var response = await Dio().post(
+  //         '${Config.paypalURL}/v1/oauth2/token?grant_type=client_credentials',
+  //         options: new Options(headers: {
+  //           HttpHeaders.authorizationHeader:
+  //               'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyMjU0ODgyMiwibmJmIjoxNjIyNTQ4ODIyLCJleHAiOjE2MjMxNTM2MjIsImRhdGEiOnsidXNlciI6eyJpZCI6IjE0In19fQ.-nuZT1JtlC2JYJqTzWGe7dv52rV8cvd4BlvUAN7A71A',
+  //           HttpHeaders.contentTypeHeader: "application/json",
+  //         }));
+  //     if (response.statusCode == 200) {
+  //       final body = response.data;
+  //       return body["access_token"];
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   // you can change default currency according to your need
   Map<dynamic, dynamic> defaultCurrency = {
@@ -78,23 +82,23 @@ class PaypalServices {
     // ];
 
     //   // checkout invoice details
-    /////// String totalAmount = cartModel.totalAmount.toString();
-    ////// String subTotalAmount = cartModel.totalAmount.toString();
+    // String totalAmount = cartModel.totalAmount.toString();
+    //  String subTotalAmount = cartModel.totalAmount.toString();
     String shippingCost = '0';
     int shippingDiscountCost = 0;
 
-    //   String totalAmount = '1.99';
-    //   String subTotalAmount = '1.99';
-    //   String shippingCost = '0';
-    //   int shippingDiscountCost = 0;
-    //   String userFirstName = 'Gulshan';
-    //   String userLastName = 'Yadav';
-    //   String addressCity = 'Delhi';
-    //   String addressStreet = 'Mathura Road';
-    //   String addressZipCode = '110014';
-    //   String addressCountry = 'India';
-    //   String addressState = 'Delhi';
-    //   String addressPhoneNumber = '+919990119091';
+    String totalAmount = '1.99';
+    String subTotalAmount = '1.99';
+    // String shippingCost = '0';
+    // int shippingDiscountCost = 0;
+    String userFirstName = 'Gulshan';
+    String userLastName = 'Yadav';
+    String addressCity = 'Delhi';
+    String addressStreet = 'Mathura Road';
+    String addressZipCode = '110014';
+    String addressCountry = 'India';
+    String addressState = 'Delhi';
+    String addressPhoneNumber = '+919990119091';
 
     Map<String, dynamic> temp = {
       "intent": "sale",
@@ -118,22 +122,21 @@ class PaypalServices {
             "items": items,
             // if (isEnableShipping &&
             //     isEnableAddress)
-            //   "shipping_address": {
-            //     "recipient_name": userFirstName +
-            //         " " +
-            //         userLastName,
-            //     "line1": addressStreet,
-            //     "line2": "",
-            //     "city": addressCity,
-            //     "country_code": addressCountry,
-            //     "postal_code": addressZipCode,
-            //     "phone": addressPhoneNumber,
-            //     "state": addressState
-          },
+            "shipping_address": {
+              "recipient_name": userFirstName + " " + userLastName,
+              "line1": addressStreet,
+              "line2": "",
+              "city": addressCity,
+              "country_code": addressCountry,
+              "postal_code": addressZipCode,
+              "phone": addressPhoneNumber,
+              "state": addressState
+            },
+          }
         }
       ],
-      "note_to_payer": "Contact us for any questions on your order.",
-      "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
+      //   "note_to_payer": "Contact us for any questions on your order.",
+      //  "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
     };
     return temp;
   }
@@ -145,11 +148,12 @@ class PaypalServices {
       var response = await Dio().post("${Config.paypalURL}/v1/payments/payment",
           data: convert.jsonEncode(transactions),
           options: new Options(headers: {
-            "content-type": "application/json",
-            'Authorization': 'Bearer  $accessToken',
+            HttpHeaders.authorizationHeader: 'Bearer  $accessToken',
+            HttpHeaders.contentTypeHeader: "application/json",
           }));
 
       final body = convert.jsonDecode(response.data);
+      print(body);
       if (response.statusCode == 201) {
         if (body["links"] != null && body["links"].length > 0) {
           List links = body["links"];

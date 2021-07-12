@@ -13,49 +13,61 @@ class LoginResponse {
     this.message,
     this.data,
   });
+
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    print(json['data'].runtimeType);
+    //print(json['data'].runtimeType);
     success = json['success'];
     statusCode = json['statusCode'];
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    //data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'].length > 0 ? new Data.fromJson(json['data']) : null;
+  }
+  //post to Api
+  Map toJson() {
+    var map = Map<String, dynamic>();
+    map["success"] = success;
+    map["statusCode"] = statusCode;
+    map["code"] = code;
+    map["message"] = message;
+    map["data"] = data.toJson();
+    return map;
   }
 }
 
 class Data {
   String id;
   String email;
-  String firstName;
-  String lastName;
-  String nicename;
+  // String firstName;
+  // String lastName;
+  // String nicename;
   String token;
-  String displayName;
+  // String displayName;
 
   Data({
     this.id,
     this.email,
-    this.firstName,
-    this.lastName,
-    this.displayName,
-    this.nicename,
+    // this.firstName,
+    // this.lastName,
+    // this.displayName,
+    // this.nicename,
     this.token,
   });
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
     email = json['email'];
-    firstName = json['firstName'];
-    displayName = json['displayName'];
-    nicename = json['nicename'];
+    // firstName = json['firstName'];
+    // displayName = json['displayName'];
+    // nicename = json['nicename'];
     token = json['token'];
   }
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['id'] = id;
     map['email'] = email;
-    map['firstName'] = firstName;
-    map['displayName'] = displayName;
-    map['nicename'] = nicename;
+    // map['firstName'] = firstName;
+    // map['displayName'] = displayName;
+    // map['nicename'] = nicename;
     map['token'] = token;
     return map;
   }

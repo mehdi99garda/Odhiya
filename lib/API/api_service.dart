@@ -57,34 +57,37 @@ class APIService {
   }
 
   ////start sign in
-  Future loginCustomer(String username, String password) async {
+  Future<LoginResponse> loginCustomer(String email, String password) async {
     LoginResponse model;
-    var authorization =
-        'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    var authToken = base64.encode(
-      utf8.encode(Config.key + ':' + Config.secret),
-    );
+    // var authorization =
+    //     'Basic ' + base64Encode(utf8.encode('$email:$password'));
+    // var authToken = base64.encode(
+    //   utf8.encode(Config.key + ':' + Config.secret),
+    // );
 
     try {
       var response = await Dio().post(
         Config.tokenURL,
         data: {
-          'username': username,
+          'username': email,
           'password': password,
         },
-        options: Options(headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $authToken',
-          HttpHeaders.contentTypeHeader: 'application/x-www-from-urlencoded'
-        }, responseType: ResponseType.json),
+        options: new Options(
+          headers: {
+            //  HttpHeaders.authorizationHeader: 'Bearer $authToken',
+            HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+          },
+        ), // responseType: ResponseType.json);
       );
-      print('rea');
-      print('response ${response.data}');
+      Map<String, dynamic> decodedData = jsonDecode(response.data);
+      print(decodedData);
+      // print('response ${response.data}');
       if (response.statusCode == 200) {
-        model = LoginResponse.fromJson(response.data);
+        model = LoginResponse.fromJson(decodedData);
       }
     } on DioError catch (e) {
-      print('error:${e.message}');
-      throw e;
+      print(e.message);
+      // throw e;
     }
     return model;
   }
@@ -187,7 +190,7 @@ class APIService {
   // Start method Add To Cart
 
   Future<CartResponseModel> addtoCart(CartRequestModel model) async {
-    model.userId = int.parse(Config.userId);
+    // model.userId = int.parse(Config.userId);
     CartResponseModel responseModel;
 
     try {
