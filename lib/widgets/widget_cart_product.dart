@@ -1,8 +1,11 @@
 import 'package:first_flutter_app/pages/Home.dart';
+import 'package:first_flutter_app/pages/provider/cart_provider.dart';
+import 'package:first_flutter_app/pages/provider/loader_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:first_flutter_app/API/models/cart_response_model.dart';
+import 'package:provider/provider.dart';
 
 class CartProduct extends StatelessWidget {
   static double somme = 0;
@@ -92,6 +95,24 @@ class CartProduct extends StatelessWidget {
                                     fontSize: 16, color: Colors.blue))),
                         FlatButton(
                             onPressed: () {
+                              Provider.of<LoderProvider>(context, listen: false)
+                                  .setLoadingStatus(true);
+                              var cartProvider = Provider.of<CartProvider>(
+                                      context,
+                                      listen: false)
+                                  .removeItem(data.productId);
+
+                              Provider.of<LoderProvider>(context, listen: false)
+                                  .setLoadingStatus(false);
+                              // //update
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .updateCart((val) {
+                                Provider.of<LoderProvider>(context,
+                                        listen: false)
+                                    .setLoadingStatus(false);
+                              });
+
+                              // end update
                               Navigator.of(context).pop();
                             },
                             child: Text(Home.lang_ar ? 'نعم' : 'Oui',

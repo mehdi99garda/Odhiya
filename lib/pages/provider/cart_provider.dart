@@ -86,16 +86,21 @@ class CartProvider with ChangeNotifier {
           productId: element.productId, quantity: element.qty));
     });
 
-    await _apiService.addtoCart(requestModel).then((responseModel) {
-      if (responseModel.data != null) {
+    await _apiService.addtoCart(requestModel).then((cartResponseModel) {
+      if (cartResponseModel.data != null) {
         _cartItems = [];
-        _cartItems.addAll(responseModel.data);
+        _cartItems.addAll(cartResponseModel.data);
       }
-      onCallback(responseModel);
+      onCallback(cartResponseModel);
       notifyListeners();
     });
   }
 
+/*cartProvider.updateCart(
+  (val){
+    Provider.of<LoaderProvider>(context,listen:false).setLoadingStatus(false);
+  }
+) */
   /* Future<void> fetchShippingDetails() async {
     if (_customerDetailsModel == null) {
       _customerDetailsModel = new CustomerDetailsModel();
@@ -105,6 +110,17 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 */
+  //start remove functon
+  void removeItem(int productId) {
+    var isProductExist = _cartItems
+        .firstWhere((prd) => prd.productId == productId, orElse: () => null);
+    if (isProductExist != null) {
+      _cartItems.remove(isProductExist);
+    }
+    notifyListeners();
+  }
+
+  // end remove function
   // test post request
   Future<void> fetchShippingDetails1() async {
     if (_customerDetailsModel == null) {

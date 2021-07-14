@@ -190,7 +190,7 @@ class APIService {
   // Start method Add To Cart
 
   Future<CartResponseModel> addtoCart(CartRequestModel model) async {
-    // model.userId = int.parse(Config.userId);
+    model.userId = int.parse(Config.userId);
     CartResponseModel responseModel;
 
     try {
@@ -243,6 +243,29 @@ class APIService {
   }
 
   // End method getCartItems
+
+  //start remove function
+  Future<bool> supp(int prodId) async {
+    bool ret = false;
+    try {
+      String url = Config.url +
+          Config.productsURL +
+          "?user_id=${Config.userId}&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+
+      print(url);
+      var response = await Dio().get(url,
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          }));
+      if (response.statusCode == 200) {
+        ret = true;
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return ret;
+  }
+  //end remove function
   //start getcustomerdetail
 
   /*Future<CustomerDetailsModel> customerDetails() async {
