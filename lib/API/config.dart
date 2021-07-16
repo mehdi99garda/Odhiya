@@ -1,3 +1,7 @@
+import 'package:first_flutter_app/pages/login.dart';
+
+import 'models/login_model.dart';
+
 class Config {
   static String key = "ck_93834663aadfcca38373f322d0e27aa25ff7dcfe";
   static String secret = "cs_ce664a6e71f44c03d7653b93f5e0721bdd945bc3";
@@ -15,7 +19,7 @@ class Config {
   //start add to cart
   static String addtoCartURL = "addtocart";
   static String cartURL = "cart";
-  static String userId = "15";
+  static String userId = Login.userID;
   static String urll = "https://odhiya.com/wp-json/wc/v3/wp-json/wp/v2/media";
   static String orderURL = "orders";
   static String currency = "Ksh ";

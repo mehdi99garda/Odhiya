@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:first_flutter_app/API/models/login_model.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:first_flutter_app/API/utils/form_helper.dart';
@@ -8,6 +9,7 @@ import 'package:first_flutter_app/API/api_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Login extends StatefulWidget {
+  static String userID;
   @override
   _LoginState createState() => _LoginState();
 }
@@ -255,7 +257,9 @@ class _LoginState extends State<Login> {
                                               Navigator.of(context).pop();
                                             });
                                           })
-                                        }
+                                        },
+                                      Login.userID = ret.data.id.toString(),
+                                      print("USER ID IS " + Login.userID)
                                     });
                           }
                           //end testing
