@@ -19,7 +19,12 @@ class Config {
   //start add to cart
   static String addtoCartURL = "addtocart";
   static String cartURL = "cart";
-  static String userId = Login.userID;
+
+  // User ID stores in this variable
+
+  //static String userId = Login.userID;
+  static String userId = "15";
+
   static String urll = "https://odhiya.com/wp-json/wc/v3/wp-json/wp/v2/media";
   static String orderURL = "orders";
   static String currency = "Ksh ";

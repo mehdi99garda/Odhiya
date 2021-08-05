@@ -268,7 +268,7 @@ class APIService {
   //end remove function
   //start getcustomerdetail
 
-  /*Future<CustomerDetailsModel> customerDetails() async {
+  Future<CustomerDetailsModel> customerDetails() async {
     CustomerDetailsModel responseModel;
 
     try {
@@ -287,7 +287,7 @@ class APIService {
       print(e.response);
     }
     return responseModel;
-  }*/
+  }
 
   // end getcustomersdetails
 
@@ -328,8 +328,8 @@ class APIService {
     bool isOrderCreated = false;
     model.customerId = int.parse(Config.userId);
 
-    /*var authToken =
-        base64.encode(utf8.encode(Config.key + ":" + Config.secret));*/
+    var authToken =
+        base64.encode(utf8.encode(Config.key + ":" + Config.secret));
 
     //log('data: $model');
     try {
@@ -339,8 +339,7 @@ class APIService {
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
-            HttpHeaders.authorizationHeader:
-                'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyMjU0ODgyMiwibmJmIjoxNjIyNTQ4ODIyLCJleHAiOjE2MjMxNTM2MjIsImRhdGEiOnsidXNlciI6eyJpZCI6IjE0In19fQ.-nuZT1JtlC2JYJqTzWGe7dv52rV8cvd4BlvUAN7A71A',
+            HttpHeaders.authorizationHeader: 'Basic $authToken',
           },
         ),
         // body: jsonEncode(model.toJson()),
@@ -399,7 +398,7 @@ class APIService {
       );*/
       String url = Config.url +
           Config.orderURL +
-          "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+          "?customer=${Config.userId}&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
 
       var response = await Dio().get(url,
           options: new Options(
@@ -422,22 +421,49 @@ class APIService {
     return data;
   }
 
+  // Future<OrderDetailsModel> getOrdersDetails(int orderId) async {
+  //   OrderDetailsModel responseModel = OrderDetailsModel();
+  //   String fullOrderUrl = Config.orderURL +
+  //       "/" +
+  //       orderId.toString() +
+  //       "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+  //   try {
+  //     http.Response response = await http.get(
+  //       Uri.parse(fullOrderUrl),
+  //       headers: {"Content-type": "application/json"},
+  //     );
+
+  //     var _decodedData = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       responseModel = OrderDetailsModel.fromJson(_decodedData);
+  //     }
+  //   } catch (error) {
+  //     print(error);
+  //   }
+
+  //   return responseModel;
+  // }
+
   Future<OrderDetailsModel> getOrdersDetails(int orderId) async {
     OrderDetailsModel responseModel = OrderDetailsModel();
-    String fullOrderUrl = Config.orderURL +
+    String fullOrderUrl = Config.url +
+        Config.orderURL +
         "/" +
         orderId.toString() +
         "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
     try {
-      http.Response response = await http.get(
-        Uri.parse(fullOrderUrl),
-        headers: {"Content-type": "application/json"},
-      );
+      var response = await Dio().get(fullOrderUrl,
+          options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json",
+            },
+          ));
 
-      var _decodedData = jsonDecode(response.body);
+      //var _decodedData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        responseModel = OrderDetailsModel.fromJson(_decodedData);
+        responseModel = OrderDetailsModel.fromJson(response.data);
       }
     } catch (error) {
       print(error);
@@ -446,29 +472,6 @@ class APIService {
     return responseModel;
   }
 
-  /* Future<OrderDetailsModel> getOrdersDetails(int orderId) async {
-    OrderDetailsModel responseModel = OrderDetailsModel();
-    String fullOrderUrl = Config.ordersUrl +
-        "/" +
-        orderId.toString() +
-        "?consumer_key=${Config.key}&consumer_secret=${Config.secret}";
-    try {
-      http.Response response = await http.get(
-        Uri.parse(fullOrderUrl),
-        headers: {"Content-type": "application/json"},
-      );
-
-      var _decodedData = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        responseModel = OrderDetailsModel.fromJson(_decodedData);
-      }
-    } catch (error) {
-      print(error);
-    }
-
-    return responseModel;
-  }*/
   //end order
 //start
   static Future<String> uploadSingleImage(File file) async {

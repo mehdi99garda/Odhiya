@@ -34,7 +34,7 @@ class CustomerDetailsModel {
     map["first_name"] = firstName;
     map["last_name"] = lastName;
     //  map["billing"] = billing;
-    //  map["shipping"] = shipping;
+    map["shipping"] = shipping;
     return map;
   }
 }

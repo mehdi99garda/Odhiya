@@ -24,6 +24,17 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
+  //
+  @override
+  void initState() {
+    super.initState();
+
+    // var cartItemsList = Provider.of<CartProvider>(context, listen: false);
+    // cartItemsList.resetStreams();
+    // cartItemsList.fetchCartItems();
+  }
+
+  //
   int selectedIndex = 0;
   final screen = [Accueil(), Categories(), AddImages(), Chat(), MyAccount()];
 
@@ -301,12 +312,21 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                         }),
                     Stack(
                       children: [
+                        // Button MON PANIER
                         IconButton(
                             icon:
                                 Icon(Icons.shopping_cart, color: Colors.black),
                             onPressed: () {
                               Navigator.of(context).pushNamed('cart_page');
+                              // setState(() {
+                              var cartItemsList = Provider.of<CartProvider>(
+                                  context,
+                                  listen: false);
+                              cartItemsList.resetStreams();
+                              cartItemsList.fetchCartItems();
+                              //  });
                             }),
+                        // end button mon panier
                         Positioned(
                             top: 0,
                             right: 6,

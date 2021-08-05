@@ -50,10 +50,10 @@ class _MyAppState extends State<MyApp> {
             create: (context) => CartProvider(),
             child: CartPage(),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => OrdersProvider(),
-          //   child: OrdersScreen(),
-          // ),
+          ChangeNotifierProvider(
+            create: (context) => OrdersProvider(),
+            child: OrdersScreen(),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

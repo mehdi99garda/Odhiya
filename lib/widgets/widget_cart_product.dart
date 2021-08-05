@@ -11,25 +11,27 @@ class CartProduct extends StatelessWidget {
   static double somme = 0;
   CartProduct({this.data});
   CartItem data;
+
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 2.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 5,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-              borderRadius: BorderRadius.circular(10)),
-          child: makeListTitle(context),
-        ));
+      elevation: 2.0,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 5,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10)),
+        child: makeListTitle(context),
+      ),
+    );
   }
 
   Widget makeListTitle(BuildContext context) {
@@ -125,8 +127,7 @@ class CartProduct extends StatelessWidget {
       ],
     ));
   }
-
-  void Somme() {
-    somme += double.parse(data.productRegularPrice);
-  }
+  //  void Somme() {
+  //   somme = double.parse(data.totalA);
+  // }
 }

@@ -5,9 +5,13 @@ import 'package:first_flutter_app/API/models/customer_detail_model.dart';
 import 'package:first_flutter_app/API/models/order.dart';
 import 'package:first_flutter_app/API/models/shipping.dart';
 import 'package:first_flutter_app/API/utils/form_helper.dart';
+import 'package:first_flutter_app/pages/orders_details_page.dart';
+import 'package:first_flutter_app/pages/orders_page.dart';
 import 'package:first_flutter_app/pages/payment_sceen.dart';
 import 'package:first_flutter_app/pages/paypal_payment.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
+import 'package:first_flutter_app/pages/provider/orders_provider.dart';
+import 'package:first_flutter_app/widgets/widget_order_item.dart';
 import 'package:first_flutter_app/widgets/widget_order_success.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -101,38 +105,41 @@ class _MyAppState extends State<MyApp> {
         ),
         TextField(
           // controller: _controller,
-          decoration: InputDecoration(hintText: 'Enter last name'),
+          decoration: InputDecoration(hintText: 'Enter city'),
           onChanged: (value) {
             setState(() {
               ship.country = value;
             });
           },
         ),
-        TextField(
-          // controller: _controller,
-          decoration: InputDecoration(hintText: 'Enter last name'),
-          onChanged: (value) {
-            setState(() {
-              ship.postCode = value;
-            });
-          },
-        ),
+        // TextField(
+        //   // controller: _controller,
+        //   decoration: InputDecoration(hintText: 'Enter last name'),
+        //   onChanged: (value) {
+        //     setState(() {
+        //       ship.postCode = value;
+        //     });
+        //   },
+        // ),
         ElevatedButton(
           onPressed: () {
-            //  _ordersModel.customerId = 15;
+            _ordersModel.customerId = 15;
             _ordersModel.shipping = ship;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        PaymentMethodsScreen() /* PaypalPayment()*/));
+
             //_apiService.createOrder(_ordersModel);
             /* Navigator.push(con
            text,
-                MaterialPageRoute(builder: (context) => OrdersSuccessWidget()));
-            var orderProvider =
-                Provider.of<CartProvider>(context, listen: false);
-            orderProvider.createOrder(ship);*/
+                MaterialPageRoute(builder: (context) => OrdersSuccessWidget()));*/
+            // var orderProvider =
+            //     Provider.of<CartProvider>(context, listen: false);
+            // orderProvider.createOrder(_ordersModel);
+            print("truuuue");
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => OrdersScreen(
+                        /*_ordersModel*/) /*PaymentMethodsScreen() */ /* PaypalPayment()*/));
             // await
 
             // log('data: $_ordersModel');
@@ -141,7 +148,7 @@ class _MyAppState extends State<MyApp> {
               _apiService.ship(_model);
             });*/
           },
-          child: Text('Create Data'),
+          child: Text('Create my order'),
         ),
       ],
     );

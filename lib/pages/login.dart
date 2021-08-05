@@ -7,9 +7,14 @@ import 'package:first_flutter_app/API/utils/form_helper.dart';
 import 'package:first_flutter_app/API/utils/progressHUD.dart';
 import 'package:first_flutter_app/API/api_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:provider/provider.dart';
+
+import 'provider/cart_provider.dart';
 
 class Login extends StatefulWidget {
   static String userID;
+  static String email;
+  static String displayName;
   @override
   _LoginState createState() => _LoginState();
 }
@@ -245,10 +250,8 @@ class _LoginState extends State<Login> {
                                       else
                                         {
                                           FormHelper.showMessage(
-                                              context,
-                                              "Odhia",
-                                              "Invalid Successful",
-                                              "ok", () {
+                                              context, "Odhia", "Error", "ok",
+                                              () {
                                             FormHelper.showMessage(
                                                 context,
                                                 'Error!!',
@@ -259,10 +262,15 @@ class _LoginState extends State<Login> {
                                           })
                                         },
                                       Login.userID = ret.data.id.toString(),
-                                      print("USER ID IS " + Login.userID)
+                                      Login.email = ret.data.email,
+                                      Login.displayName = ret.data.displayName,
+                                      print("USER ID IS " + Login.userID),
+                                      print("My email :" +
+                                          Login.email +
+                                          "  My name :" +
+                                          Login.displayName)
                                     });
                           }
-                          //end testing
                         },
                         color: Colors.green[200],
                         shape: RoundedRectangleBorder(

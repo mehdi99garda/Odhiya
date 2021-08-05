@@ -83,10 +83,10 @@ class _OrderDetailsWidgetState extends BasePageState<OrderDetailsScreen> {
             "Payment Method",
             style: Theme.of(context).textTheme.labelHeading,
           ),
-          Text(
-            model.paymentMethod,
-            style: Theme.of(context).textTheme.labelText,
-          ),
+          // Text(
+          //   model.paymentMethod,
+          //   style: Theme.of(context).textTheme.labelText,
+          // ),
           Divider(color: Colors.grey),
           SizedBox(height: 5),
           CheckOutCheckPoints(
@@ -98,12 +98,12 @@ class _OrderDetailsWidgetState extends BasePageState<OrderDetailsScreen> {
           Divider(color: Colors.grey),
           _listOrderItem(model),
           Divider(color: Colors.grey),
-          _itemTotal("Item Total", model.itemTotalAmount.toString(),
-              textStyle: Theme.of(context).textTheme.itemTotalText),
-          _itemTotal("Shipping Charges", model.shippingTotal.toString(),
-              textStyle: Theme.of(context).textTheme.productItemText),
-          _itemTotal("Paid", model.totalAmount.toString(),
-              textStyle: Theme.of(context).textTheme.itemTotalPaidText),
+          // _itemTotal("Item Total", model.itemTotalAmount.toString(),
+          //     textStyle: Theme.of(context).textTheme.itemTotalText),
+          // _itemTotal("Shipping Charges", model.shippingTotal.toString(),
+          //     textStyle: Theme.of(context).textTheme.productItemText),
+          // _itemTotal("Paid", model.totalAmount.toString(),
+          //     textStyle: Theme.of(context).textTheme.itemTotalPaidText),
         ],
       ),
     );
@@ -129,7 +129,7 @@ class _OrderDetailsWidgetState extends BasePageState<OrderDetailsScreen> {
         padding: const EdgeInsets.all(1),
         child: Text("Quantity: ${product.quantity}"),
       ),
-      trailing: Text(Config.currency + product.totalAmount.toString()),
+      //  trailing: Text(Config.currency + product.totalAmount.toString()),
       onTap: () {},
     );
   }

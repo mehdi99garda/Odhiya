@@ -24,6 +24,14 @@ class Annonce extends StatefulWidget {
 }
 
 class _AnnonceState extends State<Annonce> {
+  void initState() {
+    super.initState();
+
+    var cartItemsList = Provider.of<CartProvider>(context, listen: false);
+    cartItemsList.resetStreams();
+    cartItemsList.fetchCartItems();
+  }
+
   //_AnnonceState({Key key, this.data}) : super(key: key);
   Product data;
 
@@ -198,6 +206,25 @@ class _AnnonceState extends State<Annonce> {
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
                                               CartPage()));
+                                  // var cartItemsList = Provider.of<CartProvider>(
+                                  //     context,
+                                  //     listen: false);
+                                  // cartItemsList.resetStreams();
+                                  // cartItemsList.fetchCartItems();
+
+                                  // test
+                                  // Provider.of<LoderProvider>(context,
+                                  //         listen: false)
+                                  //     .setLoadingStatus(true);
+                                  // var cartProvider = Provider.of<CartProvider>(
+                                  //         context,
+                                  //         listen: false)
+                                  //     .fetchCartItems();
+
+                                  // Provider.of<LoderProvider>(context,
+                                  //         listen: false)
+                                  //     .setLoadingStatus(false);
+                                  // test
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -236,6 +263,13 @@ class _AnnonceState extends State<Annonce> {
                                   setState(() {
                                     isAdd = true;
                                   });
+                                  // // fetch product test
+                                  // var cartItemsList = Provider.of<CartProvider>(
+                                  //     context,
+                                  //     listen: false);
+                                  // cartItemsList.resetStreams();
+                                  // cartItemsList.fetchCartItems();
+                                  // end fetch product test
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius:

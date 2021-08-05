@@ -1,3 +1,5 @@
+import 'package:first_flutter_app/API/models/cart_response_model.dart';
+import 'package:first_flutter_app/API/models/cart_response_model.dart';
 import 'package:first_flutter_app/API/utils/progressHUD.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/payment_sceen.dart';
@@ -27,9 +29,9 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
 
-    var cartItemsList = Provider.of<CartProvider>(context, listen: false);
-    cartItemsList.resetStreams();
-    cartItemsList.fetchCartItems();
+    // var cartItemsList = Provider.of<CartProvider>(context, listen: false);
+    // cartItemsList.resetStreams();
+    // cartItemsList.fetchCartItems();
   }
 
   @override
@@ -57,7 +59,88 @@ class _CartPageState extends State<CartPage> {
                     indent: 5,
                     endIndent: 5,
                   ),
-                  Container(
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _cartItemsList() {
+    return new Consumer<CartProvider>(builder: (context, cartModel, child) {
+      return ListView(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: cartModel.cartItems.length,
+                    itemBuilder: (context, index) {
+                      return CartProduct(data: cartModel.cartItems[index]);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          //start update cart
+          // Padding(
+          //   padding: const EdgeInsets.all(10),
+          //   child: Align(
+          //     alignment: Alignment.centerRight,
+          //     child: TextButton(
+          //       style: TextButton.styleFrom(
+          //         padding: const EdgeInsets.all(15),
+          //         backgroundColor: Colors.green,
+          //         shape: StadiumBorder(),
+          //       ),
+          //       child: Wrap(
+          //         alignment: WrapAlignment.center,
+          //         crossAxisAlignment: WrapCrossAlignment.center,
+          //         children: [
+          //           Icon(
+          //             Icons.sync,
+          //             color: Colors.white,
+          //           ),
+          //           Text(
+          //             "Update Cart",
+          //             style: TextStyle(color: Colors.white),
+          //           )
+          //         ],
+          //       ),
+          //       onPressed: () {
+          //         var _loaderProvider = Provider.of<LoderProvider>(
+          //           context,
+          //           listen: false,
+          //         );
+          //         _loaderProvider.setLoadingStatus(true);
+          //         var _cartProvider =
+          //             Provider.of<CartProvider>(context, listen: false);
+
+          //         _cartProvider.updateCart((value) {
+          //           _loaderProvider.setLoadingStatus(false);
+          //         });
+          //       },
+          //     ),
+          //   ),
+          // ),
+
+          // end update
+        ],
+      );
+    });
+  }
+}
+/*  Container(
                     padding: EdgeInsets.only(top: 10),
                     height: 40,
                     child: Row(
@@ -117,40 +200,4 @@ class _CartPageState extends State<CartPage> {
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _cartItemsList() {
-    return new Consumer<CartProvider>(builder: (context, cartModel, child) {
-      return ListView(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: cartModel.cartItems.length,
-                    itemBuilder: (context, index) {
-                      return CartProduct(data: cartModel.cartItems[index]);
-                    },
-                  )
-                ],
-              ),
-            ],
-          ),
-        ],
-      );
-    });
-  }
-}
+ */

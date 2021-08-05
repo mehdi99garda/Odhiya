@@ -17,6 +17,11 @@ class CartProvider with ChangeNotifier {
 
   List<CartItem> get cartItems => _cartItems;
   double get totalRecords => _cartItems.length.toDouble();
+  double get totalAmount => _cartItems != null
+      ? _cartItems
+          .map<double>((e) => e.lineSubtotal)
+          .reduce((value, element) => value + element)
+      : 0;
 
   CustomerDetailsModel get customerDetailsModel => _customerDetailsModel;
   OrdersModel get ordersModel => _ordersModel;
@@ -101,7 +106,7 @@ class CartProvider with ChangeNotifier {
     Provider.of<LoaderProvider>(context,listen:false).setLoadingStatus(false);
   }
 ) */
-  /* Future<void> fetchShippingDetails() async {
+  Future<void> fetchShippingDetails() async {
     if (_customerDetailsModel == null) {
       _customerDetailsModel = new CustomerDetailsModel();
     }
@@ -109,7 +114,7 @@ class CartProvider with ChangeNotifier {
 
     notifyListeners();
   }
-*/
+
   //start remove functon
   void removeItem(int productId) {
     var isProductExist = _cartItems
@@ -122,48 +127,50 @@ class CartProvider with ChangeNotifier {
 
   // end remove function
   // test post request
-  Future<void> fetchShippingDetails1() async {
-    if (_customerDetailsModel == null) {
-      _customerDetailsModel = new CustomerDetailsModel();
-    }
-    await _apiService.ship(_customerDetailsModel);
+  // Future<void> fetchShippingDetails1() async {
+  //   if (_customerDetailsModel == null) {
+  //     _customerDetailsModel = new CustomerDetailsModel();
+  //   }
+  //   await _apiService.ship(_customerDetailsModel);
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
   // end post request
 
-  processOrder(OrdersModel ordersModel) {
-    _ordersModel = ordersModel;
-    notifyListeners();
-  }
-
-  // Future<void> createOrder(ShippingModel _ship) async {
-  //   if (_ordersModel.shipping == null) {
-  //     _ordersModel.shipping = ShippingModel();
-  //   }
-  //   if (customerDetailsModel.shipping != null) {
-  //     _ordersModel.shipping = _customerDetailsModel.shipping;
-  //   }
-
-  //   if (_ordersModel.lineItems == null) {
-  //     _ordersModel.lineItems = <LineItemsModel>[];
-  //   }
-
-  //   _cartItems.forEach((element) {
-  //     _ordersModel.lineItems.add(
-  //       LineItemsModel(
-  //         productId: element.productId,
-  //         quantity: element.qty,
-  //         // variationId: element.variationId,
-  //       ),
-  //     );
-  //   });
-
-  //   await _apiService.createOrder(_ordersModel).then((value) {
-  //     if (value) {
-  //       _isOrderCreated = true;
-  //       notifyListeners();
-  //     }
-  //   });
+  // processOrder(OrdersModel ordersModel) {
+  //   _ordersModel = ordersModel;
+  //   notifyListeners();
   // }
+
+  Future<void> createOrder(OrdersModel _ordersModel) async {
+    if (_ordersModel.shipping == null) {
+      //print(_ordersModel);
+      _ordersModel.shipping = ShippingModel();
+    }
+    // if (customerDetailsModel.shipping != null) {
+    //   _ordersModel.shipping = _customerDetailsModel.shipping;
+    // }
+
+    if (_ordersModel.lineItems == null) {
+      _ordersModel.lineItems = <LineItemsModel>[];
+    }
+
+    _cartItems.forEach((element) {
+      _ordersModel.lineItems.add(
+        LineItemsModel(
+          productId: element.productId,
+          quantity: element.qty,
+          // variationId: element.variationId,
+        ),
+      );
+    });
+
+    await _apiService.createOrder(_ordersModel).then((value) {
+      if (value) {
+        _isOrderCreated = true;
+        notifyListeners();
+        print("goodjob");
+      }
+    });
+  }
 }
