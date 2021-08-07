@@ -89,6 +89,63 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ],
               ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          Text(
+                            'المجموع : ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            '${cartModel.totalAmount} ' + 'د.م',
+                            style: TextStyle(fontSize: 15, color: Colors.teal),
+                          )
+                        ],
+                      ),
+                    ),
+                    RaisedButton(
+                        color: Colors.teal,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Check out',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                        onPressed: () {
+                          /*  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PaymentMethodsScreen()));*/
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => MyApp()));
+
+                          /* Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          VerifyAddressScreen1()));*/
+                          /* Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OrdersScreen()));*/
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(40.0))),
+                  ],
+                ),
+              ),
             ],
           ),
 

@@ -317,13 +317,17 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             icon:
                                 Icon(Icons.shopping_cart, color: Colors.black),
                             onPressed: () {
-                              Navigator.of(context).pushNamed('cart_page');
-                              // setState(() {
-                              var cartItemsList = Provider.of<CartProvider>(
-                                  context,
-                                  listen: false);
-                              cartItemsList.resetStreams();
-                              cartItemsList.fetchCartItems();
+                              if (Login.condition == true) {
+                                Navigator.of(context).pushNamed('cart_page');
+                                // setState(() {
+                                var cartItemsList = Provider.of<CartProvider>(
+                                    context,
+                                    listen: false);
+                                cartItemsList.resetStreams();
+                                cartItemsList.fetchCartItems();
+                              } else {
+                                Navigator.of(context).pushNamed('login');
+                              }
                               //  });
                             }),
                         // end button mon panier

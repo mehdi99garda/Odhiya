@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'provider/cart_provider.dart';
 
 class Login extends StatefulWidget {
+  static bool condition;
   static String userID;
   static String email;
   static String displayName;
@@ -232,6 +233,7 @@ class _LoginState extends State<Login> {
                                 .then((ret) => {
                                       if (ret.success == true)
                                         {
+                                          Login.condition = true,
                                           print(ret.data.email),
                                           print(ret.data.toJson()),
                                           FormHelper.showMessage(

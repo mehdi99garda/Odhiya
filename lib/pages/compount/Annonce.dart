@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:first_flutter_app/API/models/cart_request_model.dart';
+import 'package:first_flutter_app/pages/login.dart';
+import 'package:first_flutter_app/pages/login.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:first_flutter_app/pages/provider/loader_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,10 +30,11 @@ class Annonce extends StatefulWidget {
 class _AnnonceState extends State<Annonce> {
   void initState() {
     super.initState();
-
-    var cartItemsList = Provider.of<CartProvider>(context, listen: false);
-    cartItemsList.resetStreams();
-    cartItemsList.fetchCartItems();
+    if (Login.condition == true) {
+      var cartItemsList = Provider.of<CartProvider>(context, listen: false);
+      cartItemsList.resetStreams();
+      cartItemsList.fetchCartItems();
+    }
   }
 
   //_AnnonceState({Key key, this.data}) : super(key: key);
@@ -243,34 +248,45 @@ class _AnnonceState extends State<Annonce> {
                                         color: Colors.white)
                                   ],
                                 ),
+                                //timer
+
                                 onPressed: () {
-                                  Provider.of<LoderProvider>(context,
-                                          listen: false)
-                                      .setLoadingStatus(true);
-                                  var cartProvider = Provider.of<CartProvider>(
-                                      context,
-                                      listen: false);
-                                  this.widget.cartProducts.quantity = 1;
-                                  this.widget.cartProducts.productId =
-                                      this.widget.product.id;
-                                  cartProvider.addToCart(
-                                      this.widget.cartProducts, (val) {
-                                    Provider.of<LoderProvider>(context,
-                                            listen: false)
-                                        .setLoadingStatus(false);
-                                    print(val);
+                                  Timer(Duration(seconds: 3), () {
+                                    if (Login.condition == true) {
+                                      Provider.of<LoderProvider>(context,
+                                              listen: false)
+                                          .setLoadingStatus(true);
+                                      var cartProvider =
+                                          Provider.of<CartProvider>(context,
+                                              listen: false);
+                                      this.widget.cartProducts.quantity = 1;
+                                      this.widget.cartProducts.productId =
+                                          this.widget.product.id;
+                                      cartProvider.addToCart(
+                                          this.widget.cartProducts, (val) {
+                                        Provider.of<LoderProvider>(context,
+                                                listen: false)
+                                            .setLoadingStatus(false);
+                                        print(val);
+                                      });
+                                      setState(() {
+                                        isAdd = true;
+                                      });
+                                    } else {
+                                      Navigator.of(context).pushNamed('login');
+                                    }
+                                    // // fetch product test
+                                    // var cartItemsList = Provider.of<CartProvider>(
+                                    //     context,
+                                    //     listen: false);
+                                    // cartItemsList.resetStreams();
+                                    // cartItemsList.fetchCartItems();
+                                    // end fetch product test
                                   });
-                                  setState(() {
-                                    isAdd = true;
-                                  });
-                                  // // fetch product test
-                                  // var cartItemsList = Provider.of<CartProvider>(
-                                  //     context,
-                                  //     listen: false);
-                                  // cartItemsList.resetStreams();
-                                  // cartItemsList.fetchCartItems();
-                                  // end fetch product test
                                 },
+
+                                //timer
+
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(40.0))),
