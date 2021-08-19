@@ -474,62 +474,153 @@ class APIService {
 
   //end order
 //start
-  static Future<String> uploadSingleImage(File file) async {
-    var authToken = base64.encode(
-      utf8.encode(Config.key + ":" + Config.secret),
-    );
-    final prefs = await SharedPreferences.getInstance();
-    final key = authToken;
-    //final value = prefs.get(key) ?? 0;
-    /*var value = base64.encode(
-      utf8.encode(Config.key + ":" + Config.secret),
-    );*/
+  // static Future<String> uploadSingleImage(File file) async {
+  //   var authToken = base64.encode(
+  //     utf8.encode(Config.key + ":" + Config.secret),
+  //   );
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final key = authToken;
+  //   //final value = prefs.get(key) ?? 0;
+  //   /*var value = base64.encode(
+  //     utf8.encode(Config.key + ":" + Config.secret),
+  //   );*/
 
-    String fileName = file.path.split("/").last;
-    var stream = new http.ByteStream(file.openRead());
-    stream.cast();
-    // get file length
+  //   String fileName = file.path.split("/").last;
+  //   var stream = new http.ByteStream(file.openRead());
+  //   stream.cast();
+  //   // get file length
 
-    var length = await file.length(); //imageFile is your image file
-    Map<String, String> headers = {
-      "Accept": "application/json",
-      "Authorization": "Bearer $authToken"
-    }; // ignore this headers if there is no authentication
+  //   var length = await file.length(); //imageFile is your image file
+  //   Map<String, String> headers = {
+  //     "Accept": "application/json",
+  //     "Authorization": "Bearer $authToken"
+  //   }; // ignore this headers if there is no authentication
 
-    // string to uri
-    var uri = Uri.parse(Config.uri);
+  //   // string to uri
+  //   var uri = Uri.parse(Config.uri);
 
-    // create multipart request
-    var request = new http.MultipartRequest("POST", uri);
+  //   // create multipart request
+  //   var request = new http.MultipartRequest("POST", uri);
 
-    // multipart that takes file
-    var multipartFileSign =
-        new http.MultipartFile('photo', stream, length, filename: fileName);
+  //   // multipart that takes file
+  //   var multipartFileSign =
+  //       new http.MultipartFile('photo', stream, length, filename: fileName);
 
-    // add file to multipart
-    request.files.add(multipartFileSign);
+  //   // add file to multipart
+  //   request.files.add(multipartFileSign);
 
-    //add headers
-    request.headers.addAll(headers);
+  //   //add headers
+  //   request.headers.addAll(headers);
 
-    //adding params
-    // request.fields['id'] = userid;
-    // request.fields['firstName'] = 'abc';
-    // request.fields['lastName'] = 'efg';
+  //   //adding params
+  //   // request.fields['id'] = userid;
+  //   // request.fields['firstName'] = 'abc';
+  //   // request.fields['lastName'] = 'efg';
 
-    // send
-    var response = await request.send();
+  //   // send
+  //   var response = await request.send();
 
-    print(response.statusCode);
+  //   print(response.statusCode);
 
-    // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
-  }
+  //   // listen for response
+  //   response.stream.transform(utf8.decoder).listen((value) {
+  //     print(value);
+  //   });
+  // }
 
 //end
 
-//test for
+//test Get wishlist
+  Future<CartResponseModel> getWishlist() async {
+    CartResponseModel responseModel;
 
+    try {
+      String url = Config.url + Config.wishlist;
+      //"?user_id=${Config.userId}&consumer_key=${Config.key}&consumer_secret=${Config.secret}";
+
+      print(url);
+      var response = await Dio().get(url,
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          }));
+      if (response.statusCode == 200) {
+        responseModel = CartResponseModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return responseModel;
+  }
+//end test get wislist
+
+// start test add Product
+  Future<Product> createProduct(Product model) async {
+    Product responseModel;
+    var authToken = base64.encode(
+      utf8.encode(Config.key + ":" + Config.secret),
+    );
+
+    var response = await Dio().post(
+      Config.url + Config.productsURL,
+      data: model.toJson(),
+      options: new Options(
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          HttpHeaders.authorizationHeader: 'Basic $authToken',
+        },
+      ),
+      // body: jsonEncode(model.toJson()),
+    );
+    if (response.statusCode == 201) {
+      responseModel = Product.fromJson(response.data);
+      return responseModel;
+    } else {
+      return null;
+    }
+  }
+
+// end test add product
+
+  Future<String> uploadImage(filePath) async {
+    //String url = "$apiURL/wp-json/wp/v2/media";
+    String url = "https://odhiya.com/wp-json/wp/v2/media";
+
+    String fileName = filePath.path.split('/').last;
+    //LoginResponseModel loginDetails = await SharedService.loginDetails();
+
+    Map<String, String> requestHeaders = {
+      'Authorization':
+          //'Bearer ${loginDetails.data.token}',
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTI4Mzg3MCwibmJmIjoxNjI5MjgzODcwLCJleHAiOjE2Mjk4ODg2NzAsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.qnjI5NZ9dWG3XVNu3OVMy8q10mPvVbfJ1t3tfCTbwqE',
+      'Content-Disposition': 'attachment; filename=$fileName',
+      'Content-Type': 'image/jpeg'
+    };
+
+    List<int> imageBytes = File(filePath.path).readAsBytesSync();
+    var request = http.Request('POST', Uri.parse(url));
+    request.headers.addAll(requestHeaders);
+    request.bodyBytes = imageBytes;
+    var res = await request.send();
+
+    if (res.statusCode == 201) {
+      return await getImageUrl(res.headers["location"]);
+    }
+    return null;
+
+    // return res.statusCode == 201 ? true : false;
+  }
+
+  static var client = http.Client();
+
+  static Future<String> getImageUrl(url) async {
+    Map<String, String> requestHeaders = {'Content-type': 'application/json'};
+    var response = await client.get(Uri.parse(url), headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var jsonString = json.decode(response.body);
+      return jsonString["source_url"];
+    } else {
+      return null;
+    }
+  }
 }

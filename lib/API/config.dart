@@ -9,7 +9,7 @@ class Config {
   static String customerURL = "customers";
   static String tokenURL = "https://odhiya.com/wp-json/jwt-auth/v1/token";
   static String categoriesURL = "products/categories";
-  static String uri = "https://odhiya.com/wp-json/wp/v2/media";
+  static String uri = "https://odhiya.com/wp-json/wp/v2/products";
   static String productsURL = "products";
   static String mouton = "455";
   static String vache = "465";
@@ -19,6 +19,9 @@ class Config {
   //start add to cart
   static String addtoCartURL = "addtocart";
   static String cartURL = "cart";
+
+//pas sure de "wishlist"
+  static String wishlist = "wishlist/498a77/get_products";
 
   // User ID stores in this variable
 

@@ -1,5 +1,6 @@
 import 'package:first_flutter_app/pages/AddPub/Add_description.dart';
 import 'package:first_flutter_app/pages/AddPub/description_detail.dart';
+import 'package:first_flutter_app/pages/Add_product.dart';
 import 'package:first_flutter_app/pages/CartPage.dart';
 import 'package:first_flutter_app/pages/Home.dart';
 import 'package:first_flutter_app/pages/MyAccount/update_annonce.dart';
@@ -108,6 +109,9 @@ class _MyAppState extends State<MyApp> {
             },
             'cart_page': (context) {
               return CartPage();
+            },
+            'Add_product': (context) {
+              return MyApp1();
             },
           },
         ));

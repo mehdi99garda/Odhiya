@@ -22,12 +22,16 @@ dependencies:
   provider: ^5.0.0
   flutter_facebook_auth: ^3.3.2
   flutter_inappwebview: ^5.3.2
+  snippet_coder_utils: ^1.0.5
+
+
 
   
   flutter:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

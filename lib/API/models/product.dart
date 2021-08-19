@@ -48,17 +48,33 @@ class Product {
       });
     }
   }
+
+  //test add product
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    // data["id"] = this.id;
+    data["name"] = this.name;
+    //data["type"] = this.type;
+    // data["description"] = this.description;
+    data["price"] = this.price;
+
+    //if (this.images != null) {
+    data["images"] = this.images.map((e) => e.toJson()).toList();
+    // }
+  }
+  //end test add product
   // video 6 , min40.39
 
-  calculateDiscount() {
-    double regularPrice = double.parse(this.regularPrice);
-    double salePrice =
-        this.salePrice != "" ? double.parse(this.salePrice) : regularPrice;
-    double discount = regularPrice - salePrice;
-    double disPercent = (discount / regularPrice) * 100;
+  // calculateDiscount() {
+  //   double regularPrice = double.parse(this.regularPrice);
+  //   double salePrice =
+  //       this.salePrice != "" ? double.parse(this.salePrice) : regularPrice;
+  //   double discount = regularPrice - salePrice;
+  //   double disPercent = (discount / regularPrice) * 100;
 
-    return disPercent.round();
-  }
+  //   return disPercent.round();
+  // }
 }
 
 class Categories {
@@ -83,13 +99,24 @@ class Categories {
 }
 
 class Images {
+  int id;
   String src;
+  // bool isUpload = false;
 
   Images({
+    this.id,
     this.src,
   });
 
   Images.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     src = json['src'];
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    //data["id"] = this.id;
+    data["src"] = this.src;
+    return data;
   }
 }

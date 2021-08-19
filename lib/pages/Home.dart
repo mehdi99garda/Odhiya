@@ -305,10 +305,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       image: AssetImage('images/logo_odhiya.png'), height: 100),
                   centerTitle: true,
                   actions: [
+                    // button search
                     IconButton(
                         icon: Icon(Icons.search, color: Colors.black),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('searchpage');
+                          // Navigator.of(context).pushNamed('searchpage');
+                          Navigator.of(context).pushNamed('Add_product');
                         }),
                     Stack(
                       children: [
