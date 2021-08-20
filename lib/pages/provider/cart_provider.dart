@@ -187,12 +187,7 @@ class CartProvider with ChangeNotifier {
   // end test add product
 
   // start upload image
-  createProduct(
-    Product model,
-    /*Function onCallback*/
-  ) async {
-    Product _productModel = await _apiService.createProduct(model);
-
+  createProduct(Product model, Function onCallback) async {
     List<Images> productImages = new List<Images>.empty(growable: true);
     if (model.images.length > 0) {
       await Future.forEach(model.images, (Images images) async {
@@ -202,6 +197,17 @@ class CartProvider with ChangeNotifier {
           productImages.add(new Images(src: imageUrl));
         }
       });
+    }
+
+    if (productImages.length > 0) {
+      model.images = productImages;
+    }
+    Product _productModel = await _apiService.createProduct(model);
+
+    if (_productModel != null) {
+      onCallback(true);
+    } else {
+      onCallback(false);
     }
 
     notifyListeners();

@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp1> {
   @override
   void initState() {
     super.initState();
-
+    this.model = new Product();
     this.model.images = [];
   }
 
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp1> {
           decoration: InputDecoration(hintText: 'Enter  name of product '),
           onChanged: (value) {
             setState(() {
-              model.name = value;
+              this.model.name = value;
             });
           },
         ),
@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp1> {
           decoration: InputDecoration(hintText: 'Enter price'),
           onChanged: (value) {
             setState(() {
-              model.price = value;
+              this.model.price = value;
             });
           },
         ),
@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp1> {
           }
           var product_Provider =
               Provider.of<CartProvider>(context, listen: false);
-          product_Provider.createProduct(this.model);
+          product_Provider.createProduct(this.model, (val) {});
 
           // Navigator.push(
           //     context,
