@@ -1,6 +1,9 @@
 import 'package:first_flutter_app/API/api_service.dart';
 import 'package:first_flutter_app/API/models/product.dart';
+import 'package:first_flutter_app/API/models/product_model.dart';
+import 'package:first_flutter_app/pages/provider/Product_provider.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
+import 'package:first_flutter_app/pages/provider/products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snippet_coder_utils/multi_images_utils.dart';
@@ -74,13 +77,13 @@ class _MyAppState extends State<MyApp1> {
           decoration: InputDecoration(hintText: 'Enter price'),
           onChanged: (value) {
             setState(() {
-              this.model.price = value;
+              this.model.regularPrice = value;
             });
           },
         ),
         //
         MultiImagePicker(
-          totalImages: 1,
+          totalImages: 4,
           imageSource: ImagePickSource.gallery,
           initialValue: this
               .model
@@ -91,6 +94,7 @@ class _MyAppState extends State<MyApp1> {
             this.images = images;
           },
         ),
+
         ElevatedButton(onPressed: () {
           if (images.length > 0) {
             this.model.images = [];
@@ -105,7 +109,7 @@ class _MyAppState extends State<MyApp1> {
             });
           }
           var product_Provider =
-              Provider.of<CartProvider>(context, listen: false);
+              Provider.of<Productprovider>(context, listen: false);
           product_Provider.createProduct(this.model, (val) {});
 
           // Navigator.push(
@@ -113,7 +117,7 @@ class _MyAppState extends State<MyApp1> {
           //     MaterialPageRoute(
           //         builder: (context) => OrdersScreen())
         })
-//           //
+//
       ],
     );
   }

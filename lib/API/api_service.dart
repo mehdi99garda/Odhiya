@@ -22,6 +22,8 @@ import 'models/order.dart';
 
 import 'dart:developer';
 
+import 'models/product_model.dart';
+
 class APIService {
   // start class APIService
 
@@ -554,49 +556,96 @@ class APIService {
 //end test get wislist
 
 // start test add Product
-  Future<Product> createProduct(Product model) async {
-    Product responseModel;
-    var authToken = base64.encode(
-      utf8.encode(Config.key + ":" + Config.secret),
-    );
+  // Future<Productmodel> createProduct(Productmodel model) async {
+  //   Productmodel responseModel;
+  //   // var authToken = base64.encode(
+  //   //   utf8.encode(Config.key + ":" + Config.secret),
+  //   // );
 
-    var response = await Dio().post(
-      Config.url + Config.productsURL,
-      data: model.toJson(),
-      options: new Options(
-        headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-          HttpHeaders.authorizationHeader: 'Basic $authToken',
-        },
-      ),
-      // body: jsonEncode(model.toJson()),
+  //   var response = await Dio().post(
+  //     Config.url + Config.productsURL,
+  //     // "?consumer_key=${Config.key}&consumer_secret=${Config.secret}",
+  //     //  data: model.toJson(),
+  //     data : jsonEncode(model.toJson()),
+
+  //     options: new Options(
+  //       headers: {
+  //         HttpHeaders.contentTypeHeader: "application/json",
+  //         HttpHeaders.authorizationHeader:
+  //             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTQ2NDQyNCwibmJmIjoxNjI5NDY0NDI0LCJleHAiOjE2MzAwNjkyMjQsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.nedE7WIzgBPHOujTL8mf_u8FCo65dYh8y7WSsXRW_YM',
+  //       },
+  //     ),
+  //   );
+  //   if (response.statusCode == 201) {
+  //     responseModel = Productmodel.fromJson(response.data);
+  //     return responseModel;
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+// end test add product
+
+//test
+  Future<Product> createProduct(Product model00) async {
+    Product responseModel;
+    // var authToken = base64.encode(
+    //   utf8.encode(Config.key + ":" + Config.secret),
+    // );
+    Map<String, String> requestHeaders = {
+      'Authorization':
+          //'Bearer ${loginDetails.data.token}',
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTU1NDA3OCwibmJmIjoxNjI5NTU0MDc4LCJleHAiOjE2MzAxNTg4NzgsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.x6qFFKlAR0dYtxf2TbInxs1gg1XSyneXDDJLML1sWQs',
+      'Content-type': 'application/json'
+    };
+    print(model00.toJson());
+    print("good");
+    // var url1 = new Uri.https(Config.url, Config.productsURL);
+    var response = await http.post(
+      Uri.parse("https://odhiya.com/wp-json/wc/v3/products"),
+
+      // Config.url + Config.productsURL,
+      // "?consumer_key=${Config.key}&consumer_secret=${Config.secret}",
+      //  data: model.toJson(),
+      headers: requestHeaders,
+      body: jsonEncode(model00.toJson()),
+
+      // options: new Options(
+      //   headers: {
+      //     HttpHeaders.contentTypeHeader: "application/json",
+      //     HttpHeaders.authorizationHeader:
+      //         'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTQ2NDQyNCwibmJmIjoxNjI5NDY0NDI0LCJleHAiOjE2MzAwNjkyMjQsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.nedE7WIzgBPHOujTL8mf_u8FCo65dYh8y7WSsXRW_YM',
+      //   },
+      // ),
     );
     if (response.statusCode == 201) {
-      responseModel = Product.fromJson(response.data);
-      return responseModel;
+      print(model00.toJson());
+      print("good2");
+      return Product.fromJson(jsonDecode(response.body));
     } else {
       return null;
     }
   }
-
-// end test add product
+//end test
 
   Future<String> uploadImage(filePath) async {
     //String url = "$apiURL/wp-json/wp/v2/media";
     String url = "https://odhiya.com/wp-json/wp/v2/media";
 
-    String fileName = filePath.path.split('/').last;
+    // String fileName = filePath.path.split('/').last;
+    String fileName = filePath.split('/').last;
+
     //LoginResponseModel loginDetails = await SharedService.loginDetails();
 
     Map<String, String> requestHeaders = {
       'Authorization':
           //'Bearer ${loginDetails.data.token}',
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTI4Mzg3MCwibmJmIjoxNjI5MjgzODcwLCJleHAiOjE2Mjk4ODg2NzAsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.qnjI5NZ9dWG3XVNu3OVMy8q10mPvVbfJ1t3tfCTbwqE',
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTU1NDA3OCwibmJmIjoxNjI5NTU0MDc4LCJleHAiOjE2MzAxNTg4NzgsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.x6qFFKlAR0dYtxf2TbInxs1gg1XSyneXDDJLML1sWQs',
       'Content-Disposition': 'attachment; filename=$fileName',
       'Content-Type': 'image/jpeg'
     };
 
-    List<int> imageBytes = File(filePath.path).readAsBytesSync();
+    List<int> imageBytes = File(/*filePath.path*/ filePath).readAsBytesSync();
     var request = http.Request('POST', Uri.parse(url));
     request.headers.addAll(requestHeaders);
     request.bodyBytes = imageBytes;
@@ -613,12 +662,17 @@ class APIService {
   static var client = http.Client();
 
   static Future<String> getImageUrl(url) async {
-    Map<String, String> requestHeaders = {'Content-type': 'application/json'};
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Authorization':
+          //'Bearer ${loginDetails.data.token}',
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb2RoaXlhLmNvbSIsImlhdCI6MTYyOTU1NDA3OCwibmJmIjoxNjI5NTU0MDc4LCJleHAiOjE2MzAxNTg4NzgsImRhdGEiOnsidXNlciI6eyJpZCI6MTR9fX0.x6qFFKlAR0dYtxf2TbInxs1gg1XSyneXDDJLML1sWQs',
+    };
     var response = await client.get(Uri.parse(url), headers: requestHeaders);
 
     if (response.statusCode == 200) {
       var jsonString = json.decode(response.body);
-      print(jsonString["source_url"]);
+      // print(jsonString["source_url"]);
       return jsonString["source_url"];
     } else {
       return null;

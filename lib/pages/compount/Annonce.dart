@@ -73,8 +73,8 @@ class _AnnonceState extends State<Annonce> {
                             height: MediaQuery.of(context).size.height / 2.5,
                             child: Carousel(
                               images: [
-                                NetworkImage(this.widget.product.images[0].src),
-                                NetworkImage(this.widget.product.images[0].src),
+                                // NetworkImage(this.widget.product.images[0].src),
+                                // NetworkImage(this.widget.product.images[0].src),
                               ],
                               dotSize: 4,
                               indicatorBgPadding: 7,

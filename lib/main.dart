@@ -15,6 +15,7 @@ import 'package:first_flutter_app/pages/events.dart';
 import 'package:first_flutter_app/pages/loadingpage.dart';
 import 'package:first_flutter_app/pages/login.dart';
 import 'package:first_flutter_app/pages/orders_page.dart';
+import 'package:first_flutter_app/pages/provider/Product_provider.dart';
 import 'package:first_flutter_app/pages/provider/cart_provider.dart';
 import 'package:first_flutter_app/pages/provider/loader_provider.dart';
 import 'package:first_flutter_app/pages/provider/orders_provider.dart';
@@ -54,6 +55,10 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
             create: (context) => OrdersProvider(),
             child: OrdersScreen(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => Productprovider(),
+            child: MyApp1(),
           ),
         ],
         child: MaterialApp(

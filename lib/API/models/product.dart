@@ -11,17 +11,17 @@ class Product {
   List<Images> images;
   List<Categories> categories;
 
-  Product({
-    this.id,
-    this.name,
-    this.description,
-    this.shortDescription,
-    this.sku,
-    this.price,
-    this.regularPrice,
-    this.salePrice,
-    this.stockStatus,
-  });
+  Product(
+      {this.id,
+      this.name,
+      this.description,
+      this.shortDescription,
+      this.sku,
+      this.price,
+      this.regularPrice,
+      this.salePrice,
+      this.stockStatus,
+      this.images});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -55,13 +55,16 @@ class Product {
 
     // data["id"] = this.id;
     data["name"] = this.name;
-    //data["type"] = this.type;
-    // data["description"] = this.description;
-    data["price"] = this.price;
+    data["regular_price"] = this.regularPrice;
 
-    //if (this.images != null) {
-    data["images"] = this.images.map((e) => e.toJson()).toList();
-    // }
+    //data["type"] = this.type;
+    //data["description"] = this.description;
+    // data["price"] = this.price;
+
+    if (this.images != null) {
+      data["images"] = this.images.map((e) => e.toJson()).toList();
+    }
+    return data;
   }
   //end test add product
   // video 6 , min40.39
@@ -109,7 +112,7 @@ class Images {
   });
 
   Images.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    //id = json['id'];
     src = json['src'];
   }
   Map<String, dynamic> toJson() {
